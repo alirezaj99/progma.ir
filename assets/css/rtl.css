@@ -1,17 +1,18 @@
 @import url('https://cdn.fontcdn.ir/Font/Persian/Sahel/Sahel.css');
+
 @font-face {
 
     font-family: yekan;
-    
+
     src: url(fonts/Yekan.ttf) format("truetype");
     src: url(fonts/Yekan.eot) format("eot");
     src: url(fonts/Yekan.woff) format("woff");
-    
+
     font-weight: normal;
-    
+
     font-style: normal
-    
-    }
+
+}
 
 body {
     text-align: right !important;
@@ -25,7 +26,12 @@ body {
 
 
 .blog-post .blockquote {
-    font-family: Georgia,"Times New Roman",Times,serif;
+    font-family: Georgia, "Times New Roman", Times, serif;
     border-right: 2px solid #292929;
     font-size: 1.5rem;
+}
+
+.blog-list .item .post-thumb {
+    max-width: 135px !important;
+    border-radius: 2px;
 }
