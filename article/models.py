@@ -1,10 +1,9 @@
 from django.db import models
-
-from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 import os
 import random
+from ckeditor.fields import RichTextField
 
 
 def get_filename_ext(filepath):
@@ -42,7 +41,7 @@ class Article(models.Model):
                                verbose_name="نویسنده")
     title = models.CharField(max_length=300, verbose_name="عنوان مقاله")
     slug = models.SlugField(max_length=100, unique=True, verbose_name="آدرس مقاله")
-    description = models.TextField(verbose_name="محتوا")
+    description = RichTextField(verbose_name="محتوا")
     image_list = models.ImageField(upload_to=upload_image_list_path, verbose_name="تصویر 135*135 مقاله")
     image = models.ImageField(upload_to=upload_image_path, verbose_name="تصویر مقاله")
     publish = models.DateTimeField(default=timezone.now, verbose_name="زمان انتشار")

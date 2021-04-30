@@ -20,6 +20,10 @@ body {
     font-family: yekan !important;
 }
 
+.sahel {
+    font-family: sahel !important;
+}
+
 .text-left {
     text-align: right !important;
 }
@@ -34,4 +38,11 @@ body {
 .blog-list .item .post-thumb {
     max-width: 135px !important;
     border-radius: 2px;
+}
+
+.blog-nav .arrow-prev {
+    position: absolute;
+    right: 1rem !important;
+    top: 1.25rem;
+    color: #fff;
 }
