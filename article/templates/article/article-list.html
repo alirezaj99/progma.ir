@@ -1,0 +1,48 @@
+{% extends 'Shared/base.html' %}
+
+{% block content %}
+    <section class="cta-section theme-bg-light py-5">
+        <div class="container text-center">
+            <h2 class="heading">DevBlog - A Blog Template Made For Developers</h2>
+            <div class="intro">Welcome to my blog. Subscribe and get my latest blog post in your inbox.</div>
+            <form class="signup-form form-inline justify-content-center pt-3">
+                <div class="form-group">
+                    <label class="sr-only" for="semail">Your email</label>
+                    <input type="email" id="semail" name="semail1" class="form-control ml-md-1 semail"
+                           placeholder="Enter email">
+                </div>
+                <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+        </div><!--//container-->
+    </section>
+    <section class="blog-list px-3 py-5 p-md-5">
+        <div class="container">
+            {% for article in page_obj %}
+                <div class="item mb-5">
+                    <div class="media">
+                        <img class="ml-3 img-fluid post-thumb d-none d-md-flex"
+                             src="{{ article.image_list.url }}" alt="{{ article.title }}">
+                        <div class="media-body">
+                            <h3 class="title mb-1"><a href="#">{{ article.title }}</a>
+                            </h3>
+                            <div class="meta mb-1"><span class="date">Published 2 days ago</span><span class="time">5 min read</span><span
+                                    class="comment"><a href="#">8 comments</a></span></div>
+                            <div class="intro">{{ article.description }}
+                            </div>
+                            <a class="more-link" href="blog-post.html">Read more &rarr;</a>
+                        </div><!--//media-body-->
+                    </div><!--//media-->
+                </div><!--//item-->
+            {% empty %}
+                <p class="alert alert-warning">مقاله ای یافت نشد</p>
+            {% endfor %}
+            <nav class="blog-nav nav nav-justified my-5">
+                <a class="nav-link-prev nav-item nav-link d-none rounded-left" href="#">قبلی<i
+                        class="arrow-prev fas fa-long-arrow-alt-rigth"></i></a>
+                <a class="nav-link-next nav-item nav-link rounded" href="blog-list.html">بعدی<i
+                        class="arrow-next fas fa-long-arrow-alt-left"></i></a>
+            </nav>
+        </div>
+
+    </section>
+{% endblock %}
