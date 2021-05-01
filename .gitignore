@@ -17,6 +17,8 @@ venv
 env
 .idea
 db.sqlite
+static_cdn
+.static_cdn
 
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
