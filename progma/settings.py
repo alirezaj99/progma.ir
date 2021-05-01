@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'ckeditor',
+    'django_cleanup.apps.CleanupConfig',
     # MY APPS
     'article',
 ]
