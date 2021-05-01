@@ -1,0 +1,107 @@
+{% extends 'Shared/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block add_header_reference %}
+    <link rel="stylesheet" href="{% static 'comments/comments.css' %}">
+{% endblock %}
+
+{% block content %}
+    <article class="blog-post px-3 py-5 p-md-5">
+        <div class="container">
+            <header class="blog-post-header">
+                <h2 class="title mb-2">{{ object.title }}</h2>
+                <div class="meta mb-3"><span class="date">{{ article.publish|naturaltime }}</span><span
+                        class="time">5 بازدید</span><span class="comment"><a href="#">4 دیدگاه</a></span></div>
+            </header>
+            <div class="blog-post-body">
+                <figure class="blog-banner">
+                    <a href="{% url 'article:article_detail' object.slug %}"><img class="img-fluid"
+                                                                                  src="{{ object.image.url }}"
+                                                                                  alt="{{ object.title }}"></a>
+                    <figcaption class="mt-2 text-center image-caption">تصویر از : <a
+                            href="{% url 'article:article_list' %}" target="_blank">پروگما</a></figcaption>
+                </figure>
+                <div class="text-justify">{{ object.description|safe }}</div>
+            </div>
+
+            {#            <nav class="blog-nav nav nav-justified my-5">#}
+            {#                <a class="nav-link-prev nav-item nav-link rounded-left" href="index.html">Previous<i#}
+            {#                        class="arrow-prev fas fa-long-arrow-alt-left"></i></a>#}
+            {#                <a class="nav-link-next nav-item nav-link rounded-right" href="blog-list.html">Next<i#}
+            {#                        class="arrow-next fas fa-long-arrow-alt-right"></i></a>#}
+            {#            </nav>#}
+            <div class="mb-5" style="border-bottom: 1px solid gray;"></div>
+            <div class="blog-comments-section">
+
+                <div id="disqus_thread" class="container bootstrap snippets bootdey">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="blog-comment">
+                                <h3 style="color: #3B7EEB;">دیدگاه ها</h3>
+                                <hr/>
+                                <ul class="comments">
+                                    <li class="clearfix">
+                                        <div class="post-comments">
+                                            <p class="meta">1 روز پیش <a class="mr-1" href="#">علیرضا</a>
+                                                <i class="mr-2" class="pull-right"><a
+                                                        href="#"><small>پاسخ</small></a></i>
+                                            </p>
+                                            <p>
+                                                سلام عالی بود باتشکر
+                                            </p>
+                                        </div>
+                                        <ul class="comments reply">
+                                            <li class="clearfix">
+                                                <div class="post-comments">
+                                                    <p class="meta">1 روز پیش <a class="mr-1" href="#">علیرضا</a>
+                                                        <i class="mr-2" class="pull-right"><a
+                                                                href="#"><small>پاسخ</small></a></i>
+                                                    </p>
+                                                    <p>
+                                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
+                                                    </p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    /*
+                    var disqus_config = function () {
+                        // Replace PAGE_URL with your page's canonical URL variable
+                        this.page.url = PAGE_URL;
+
+                        // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                        this.page.identifier = PAGE_IDENTIFIER;
+                    };
+                    */
+
+                    (function () {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+                        var d = document, s = d.createElement('script');
+
+                        // IMPORTANT: Replace 3wmthemes with your forum shortname!
+                        s.src = 'https://3wmthemes.disqus.com/embed.js';
+
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                    })();
+                </script>
+                <noscript>
+                    Please enable JavaScript to view the
+                    <a href="https://disqus.com/?ref_noscript" rel="nofollow">
+                        comments powered by Disqus.
+                    </a>
+                </noscript>
+            </div><!--//blog-comments-section-->
+
+        </div><!--//container-->
+
+    </article>
+
+{% endblock %}

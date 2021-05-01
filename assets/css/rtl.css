@@ -46,3 +46,15 @@ body {
     top: 1.25rem;
     color: #fff;
 }
+
+.a-m-h {
+    color: #0E2231 !important;
+}
+
+.a-m-h:hover {
+    color: #ffffff !important;
+}
+
+.blog-nav .nav-link-prev {
+    border-right: 0 !important;
+}

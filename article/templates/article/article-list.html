@@ -3,15 +3,15 @@
 {% block content %}
     <section class="cta-section theme-bg-light py-5">
         <div class="container text-center">
-            <h2 class="heading sahel">پروگما | مقالاتی برای برنامه نویسان</h2>
-            <div class="intro sahel ">برای دریافت آخرین مقالات پروگما ایمیلت رو وارد کن !</div>
-            <form class="signup-form form-inline justify-content-center pt-3">
+            <h2 class="heading sahel">پروگما | برای برنامه نویسان</h2>
+{#            <div class="intro sahel ">دنبال چه میگردی ؟</div>#}
+            <form class="signup-form form-inline justify-content-center pt-3 mt-3">
                 <div class="form-group">
-                    <label class="sr-only" for="semail">ایمیل</label>
-                    <input type="email" id="semail" name="semail1" class="form-control ml-md-1 semail sahel"
-                           placeholder="ایمیل تو...">
+                    <label class="sr-only" for="semail">جست و جو</label>
+                    <input type="search" id="semail" name="semail1" class="form-control ml-md-1 semail sahel"
+                           placeholder="دنبال چه میگردی ؟">
                 </div>
-                <button type="submit" class="btn btn-primary sahel">مشترک شدن</button>
+                <button type="submit" class="btn btn-primary sahel">جست و جو</button>
             </form>
         </div><!--//container-->
     </section>
@@ -23,7 +23,8 @@
                         <img class="ml-3 img-fluid post-thumb d-none d-md-flex"
                              src="{{ article.image_list.url }}" alt="{{ article.title }}">
                         <div class="media-body">
-                            <h3 class="title mb-1"><a href="#">{{ article.title }}</a>
+                            <h3 class="title mb-1"><a
+                                    href="{% url 'article:article_detail' article.slug %}">{{ article.title }}</a>
                             </h3>
                             <div class="meta mb-1"><span class="date">{{ article.publish|naturaltime }}</span><span
                                     class="time">5 بازدید</span><span
@@ -45,5 +46,19 @@
             </nav>
         </div>
 
+    </section>
+    <section class="cta-section theme-bg-light mb-3 py-5">
+        <div class="container text-center">
+            <h2 class="heading sahel">پروگما | برای برنامه نویسان</h2>
+            <div class="intro sahel ">برای دریافت آخرین مقالات ایمیلت رو وارد کن !</div>
+            <form class="signup-form form-inline justify-content-center pt-3">
+                <div class="form-group">
+                    <label class="sr-only" for="semail">ایمیل</label>
+                    <input type="email" id="semail" name="semail1" class="form-control ml-md-1 semail sahel"
+                           placeholder="ایمیل تو...">
+                </div>
+                <button type="submit" class="btn btn-primary sahel">مشترک شدن</button>
+            </form>
+        </div><!--//container-->
     </section>
 {% endblock %}

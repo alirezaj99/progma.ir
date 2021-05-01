@@ -2,13 +2,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>پروگما | مقالاتی برای برنامه نویسان</title>
+    <title>پروگما | برای برنامه نویسان</title>
     {% include 'Shared/__HeaderReferences.html' %}
+    {% block add_header_reference %}{% endblock %}
 </head>
 
 <body>
 <header class="header text-center">
-    <h1 class="blog-name pt-lg-4 mb-0"><a href="index.html">برنامه نویسی با پروگما</a></h1>
+    <h1 class="blog-name pt-lg-4 mb-0"><a href="{% url 'article:article_list' %}">برنامه نویسی با پروگما</a></h1>
 
     <nav class="navbar navbar-expand-lg navbar-dark">
 
@@ -22,8 +23,8 @@
                 <img class="profile-image mb-3 rounded-circle mx-auto" src="{% static 'images/profile.png' %}"
                      alt="image">
 
-                <div class="bio mb-3">Hi, my name is Anthony Doe. Briefly introduce yourself here. You can also provide
-                    a link to the about page.<br><a href="about.html">Find out more about me</a></div><!--//bio-->
+                <div class="bio mb-3">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
+                    گرافیک است.<br><a class="text-decoration-none a-m-h" href="#">منو بیشتر بشناس ...</a></div><!--//bio-->
                 <ul class="social-list list-inline py-3 mx-auto">
                     <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
                     <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
@@ -36,19 +37,19 @@
 
             <ul class="navbar-nav flex-column text-left">
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.html"><i class="fas fa-home fa-fw ml-2"></i>Blog Home <span
-                            class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{% url 'article:article_list' %}"><i
+                            class="fas fa-newspaper fa-fw ml-2"></i>مقالات</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="blog-post.html"><i class="fas fa-bookmark fa-fw ml-2"></i>Blog Post</a>
+                    <a class="nav-link" href="blog-post.html"><i class="fas fa-bookmark fa-fw ml-2"></i>ذخیره شده</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw ml-2"></i>About Me</a>
+                    <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw ml-2"></i>درباره من</a>
                 </li>
             </ul>
 
             <div class="my-2 my-md-3">
-                <a class="btn btn-primary" href="https://themes.3rdwavemedia.com/" target="_blank">Get in Touch</a>
+                <a class="btn btn-primary   " href="#" target="_blank">تماس با من</a>
             </div>
         </div>
     </nav>
@@ -60,8 +61,8 @@
     <footer class="footer text-center py-2 theme-bg-dark">
 
         <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can buy the commercial license via our website: themes.3rdwavemedia.com */-->
-        <small class="copyright">Designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a
-                href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+        <p class="sahel">انتشار مقالات با ذکر منبع بلامانع است | <a href="{% url 'article:article_list' %}">پروگما</a>
+        </p>
 
     </footer>
 
