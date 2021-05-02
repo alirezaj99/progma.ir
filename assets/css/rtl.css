@@ -1,6 +1,5 @@
-@import url('https://cdn.fontcdn.ir/Font/Persian/Sahel/Sahel.css');
-
-@font-face {
+/*@import url('https://cdn.fontcdn.ir/Font/Persian/Sahel/Sahel.css');*/
+/*@font-face {
 
     font-family: yekan;
 
@@ -12,17 +11,49 @@
 
     font-style: normal
 
+}*/
+@font-face {
+
+    font-family: sahel;
+
+    src: url(fonts/sahel/Sahel.ttf) format("truetype");
+    src: url(fonts/sahel/Sahel.eot) format("eot");
+    src: url(fonts/sahel/Sahel.woff) format("woff");
+
+    font-weight: normal;
+
+    font-style: normal
+
+}
+
+@font-face {
+
+    font-family: sahel-bold;
+
+    src: url(fonts/sahel/Sahel-Bold.ttf) format("truetype");
+    src: url(fonts/sahel/Sahel-Bold.eot) format("eot");
+    src: url(fonts/sahel/Sahel-Bold.woff) format("woff");
+
+    font-weight: normal;
+
+    font-style: normal
+
 }
 
 body {
     text-align: right !important;
     direction: rtl !important;
-    font-family: yekan !important;
+    font-family: sahel !important;
 }
 
 .sahel {
     font-family: sahel !important;
 }
+
+.sahel-bold {
+    font-family: sahel-bold !important;
+}
+
 
 .text-left {
     text-align: right !important;
