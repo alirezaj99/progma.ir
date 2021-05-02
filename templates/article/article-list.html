@@ -43,12 +43,24 @@
             {% empty %}
                 <p class="alert alert-warning">مقاله ای یافت نشد</p>
             {% endfor %}
-            <nav class="blog-nav nav nav-justified my-5">
-                <a class="nav-link-prev nav-item nav-link rounded sahel mx-1" href="#">قبلی<i
-                        class="arrow-prev fas fa-long-arrow-alt-right sahel"></i></a>
-                {% comment %}<a class="nav-link-next nav-item nav-link rounded sahel mx-1" href="blog-list.html">بعدی<i
+            <div class="row">
+                <div class="col-6">
+                    <nav class="blog-nav nav nav-justified my-5">
+                        <a class="nav-link-prev nav-item nav-link rounded sahel mx-1" href="#">قبلی<i
+                                class="arrow-prev fas fa-long-arrow-alt-right sahel"></i></a>
+                        {% comment %}<a class="nav-link-next nav-item nav-link rounded sahel mx-1" href="blog-list.html">بعدی<i
                         class="arrow-next fas fa-long-arrow-alt-left"></i></a>{% endcomment %}
-            </nav>
+                    </nav>
+                </div>
+                <div class="col-6">
+                    <nav class="blog-nav nav nav-justified my-5">
+                        <a class="nav-link-prev nav-item nav-link rounded sahel mx-1" href="#">بعدی<i
+                                class="arrow-prevl fas fa-long-arrow-alt-left sahel"></i></a>
+                        {% comment %}<a class="nav-link-next nav-item nav-link rounded sahel mx-1" href="blog-list.html">بعدی<i
+                        class="arrow-next fas fa-long-arrow-alt-left"></i></a>{% endcomment %}
+                    </nav>
+                </div>
+            </div>
         </div>
 
     </section>

@@ -1,0 +1,78 @@
+{% extends 'Shared/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block add_header_reference %}
+    <link rel="stylesheet" href="{% static 'comments/comments.css' %}">
+{% endblock %}
+
+{% block content %}
+    <article class="blog-post px-3 py-5 p-md-5">
+        <div class="container">
+            <header class="blog-post-header">
+                <h2 class="title mb-2">{{ object.title }}</h2>
+                <div class="meta mb-3">
+                    <span class="date">{{ article.publish|naturaltime }}</span>
+                    <span class="comment">نویسنده : <a href="#">{{ article.author.get_full_name }}</a></span>
+                    <span class="time">5 بازدید</span>
+                    <span class="comment"><a href="#">4 دیدگاه</a></span>
+                </div>
+            </header>
+            <div class="blog-post-body">
+                <figure class="blog-banner">
+                    <a href="{% url 'article:article_detail' object.slug %}"><img class="img-fluid"
+                                                                                  src="{{ object.image.url }}"
+                                                                                  alt="{{ object.title }}"></a>
+                    <figcaption class="mt-2 text-center image-caption">تصویر از : <a
+                            href="{% url 'article:article_list' %}" target="_blank">پروگما</a></figcaption>
+                </figure>
+                <div class="text-justify">{{ object.description|safe }}</div>
+                <div class="text-justify article-tag">
+                    <span>برچسب ها :</span> {% for tag in object.tags.get_active_tag %}
+                    <a href="/articles/?s={{ tag.title }}">{{ tag.title }}</a>{% endfor %}
+                </div>
+            </div>
+            <div class="my-4" style="border-bottom: 1px solid gray;"></div>
+            <div class="blog-comments-section">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="blog-comment">
+                            <h3 style="color: #3B7EEB;margin-bottom:30px !important;">دیدگاه ها</h3>
+                            <ul class="comments">
+                                <li class="clearfix">
+                                    <div class="post-comments">
+                                        <p class="meta">1 روز پیش <a class="mr-1" href="#">علیرضا</a>
+                                            <i class="mr-2" class="pull-right"><a
+                                                    href="#"><small>پاسخ</small></a></i>
+                                        </p>
+                                        <p>
+                                            سلام عالی بود باتشکر
+                                        </p>
+                                    </div>
+                                    <ul class="comments reply">
+                                        <li class="clearfix">
+                                            <div class="post-comments">
+                                                <p class="meta">1 روز پیش <a class="mr-1" href="#">علیرضا</a>
+                                                    <i class="mr-2" class="pull-right"><a
+                                                            href="#"><small>پاسخ</small></a></i>
+                                                </p>
+                                                <p>
+                                                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div><!--//blog-comments-section-->
+
+        </div><!--//container-->
+
+    </article>
+
+{% endblock %}
