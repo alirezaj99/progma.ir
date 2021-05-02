@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
+from account.models import User
 import os
 import random
 from ckeditor.fields import RichTextField
@@ -33,8 +33,40 @@ class ArticleManager(models.Manager):
 
     def search(self, query):
         lookup = (Q(title__icontains=query) |
-                  Q(description__icontains=query))
+                  Q(description__icontains=query) |
+                  Q(tags__title__icontains=query)
+                  )
         return self.get_queryset().filter(lookup, status='p').distinct()
+
+
+class ArticleTagManager(models.Manager):
+    def get_active_tag(self):
+        return self.get_queryset().filter(active=True)
+
+
+class ArticleTag(models.Model):
+    title = models.CharField(max_length=400, verbose_name="عنوان برچسب")
+    slug = models.SlugField(max_length=200, unique=True, verbose_name="آدرس برچسب")
+    active = models.BooleanField(default=True, verbose_name='فعال / غیرفعال')
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    objects = ArticleTagManager()
+
+    class Meta:
+        verbose_name = "برچسب"
+        verbose_name_plural = "برچسب"
+        ordering = ['-created']
+
+    def __str__(self):
+        return self.title
+
+    # def save(self, *args, **kwargs):
+    #     if not self.active:
+    #         for article in self.article_tags.get_publish_article():
+    #             article.status = 'd'
+    #             article.save()
+    #     super(ArticleTag, self).save(*args, **kwargs)
 
 
 class Article(models.Model):
@@ -45,11 +77,12 @@ class Article(models.Model):
 
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='articles',
                                verbose_name="نویسنده")
-    title = models.CharField(max_length=300, verbose_name="عنوان مقاله")
-    slug = models.SlugField(max_length=100, unique=True, verbose_name="آدرس مقاله")
+    title = models.CharField(max_length=400, verbose_name="عنوان مقاله")
+    slug = models.SlugField(max_length=200, unique=True, verbose_name="آدرس مقاله")
     description = RichTextField(verbose_name="محتوا")
     image_list = models.ImageField(upload_to=upload_image_list_path, verbose_name="تصویر 135*135 مقاله")
     image = models.ImageField(upload_to=upload_image_path, verbose_name="تصویر مقاله")
+    tags = models.ManyToManyField(ArticleTag, blank=True, related_name='article_tags', verbose_name='تگ ها / برچسب ها')
     publish = models.DateTimeField(default=timezone.now, verbose_name="زمان انتشار")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -64,3 +97,13 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+    def author_str(self):
+        return str(self.author)
+
+    author_str.short_description = 'نویسنده'
+
+    def tags_str(self):
+        return " - ".join([tag.title for tag in self.tags.get_active_tag()])
+
+    tags_str.short_description = 'تگ ها / برچسب ها'

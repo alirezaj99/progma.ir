@@ -78,6 +78,13 @@ body {
     color: #fff;
 }
 
+.blog-nav .arrow-prevl {
+    position: absolute;
+    left: 1rem !important;
+    top: 1.25rem;
+    color: #fff;
+}
+
 .a-m-h {
     color: #0E2231 !important;
 }
@@ -88,4 +95,12 @@ body {
 
 .blog-nav .nav-link-prev {
     border-right: 0 !important;
+}
+
+.article-tag a {
+    padding-left: .4rem;
+}
+
+.article-tag span {
+    margin-left: .3rem;
 }
