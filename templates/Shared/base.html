@@ -1,6 +1,5 @@
-{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 <head>
     <title>پروگما | برای برنامه نویسان</title>
     {% include 'Shared/__HeaderReferences.html' %}
@@ -8,63 +7,12 @@
 </head>
 
 <body>
-<header class="header text-center">
-    <h1 class="blog-name pt-lg-4 mb-0"><a href="{% url 'article:article_list' %}">برنامه نویسی با پروگما</a></h1>
-
-    <nav class="navbar navbar-expand-lg navbar-dark">
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-                aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div id="navigation" class="collapse navbar-collapse flex-column">
-            <div class="profile-section pt-3 pt-lg-0">
-                <img class="profile-image mb-3 rounded-circle mx-auto" src="{% static 'images/profile.png' %}"
-                     alt="image">
-
-                <div class="bio mb-3">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                    گرافیک است.<br><a class="text-decoration-none a-m-h" href="#">منو بیشتر بشناس ...</a></div><!--//bio-->
-                <ul class="social-list list-inline py-3 mx-auto">
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-github-alt fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-codepen fa-fw"></i></a></li>
-                </ul><!--//social-list-->
-                <hr>
-            </div><!--//profile-section-->
-
-            <ul class="navbar-nav flex-column text-left">
-                <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'article:article_list' %}"><i
-                            class="fas fa-newspaper fa-fw ml-2"></i>مقالات</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="blog-post.html"><i class="fas fa-bookmark fa-fw ml-2"></i>ذخیره شده</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw ml-2"></i>درباره من</a>
-                </li>
-            </ul>
-
-            <div class="my-2 my-md-3">
-                <a class="btn btn-primary   " href="#" target="_blank">تماس با من</a>
-            </div>
-        </div>
-    </nav>
-</header>
+{% include 'Shared/Header.html' %}
 
 <div class="main-wrapper">
     {% block content %}{% endblock %}
 
-    <footer class="footer text-center py-2 theme-bg-dark">
-
-        <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can buy the commercial license via our website: themes.3rdwavemedia.com */-->
-        <p class="sahel">انتشار مقالات با ذکر منبع بلامانع است | <a href="{% url 'article:article_list' %}">پروگما</a>
-        </p>
-
-    </footer>
+    {% include 'Shared/Footer.html' %}
 
 </div><!--//main-wrapper-->
 
