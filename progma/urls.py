@@ -2,9 +2,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from progma import settings
+from account.views import logout_view
 
 urlpatterns = [
     path('', include("article.urls", namespace="article")),
+    path('', include('social_django.urls', namespace='social')),
+    path('logout/', logout_view, name='logout'),
     path('admin/', admin.site.urls),
 ]
 

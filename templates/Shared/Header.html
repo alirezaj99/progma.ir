@@ -43,15 +43,26 @@
                 <li class="nav-item">
                     <a class="nav-link" href="about.html"><i class="fas fa-phone fa-fw ml-2"></i>تماس با من</a>
                 </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="
+                                {% url 'logout' %}?next={{ request.path }}"><i
+                                class="fas fa-sign-out-alt fa-fw ml-2"></i>خروج</a>
+                    </li>
+                {% endif %}
             </ul>
 
-            <div class="my-2 my-md-3">
-                <a style="text-shadow: 1px 1px 5px #000000;" class="btn btn-danger" href="#" target="_blank">ورود</a>
-            </div>
             <div class="my-2 my-md-2">
-                <a class="btn btn-warning text-dark" style="height: auto" href="#" target="_blank">ورود
-                    با
-                    گوگل <i class="fab fa-google"></i></a>
+                {% if not user.is_authenticated %}
+                    <a class="mb-3 btn btn-warning text-dark" style="height: auto"
+                       href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">ورود
+                        با
+                        گوگل <i class="fab fa-google"></i></a>
+                {% else %}
+                    <a class="mb-3 btn btn-warning text-dark" style="height: auto">خوش
+                        آمدی {% if user.get_full_name %}{{ user.get_full_name }}{% else %}
+                            {{ user.username }}{% endif %}</a>
+                {% endif %}
             </div>
         </div>
     </nav>
