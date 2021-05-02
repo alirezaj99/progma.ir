@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 import os
 import random
 from ckeditor.fields import RichTextField
+from django.db.models import Q
 
 
 def get_filename_ext(filepath):
@@ -29,6 +30,11 @@ def upload_image_path(instance, filename):
 class ArticleManager(models.Manager):
     def get_publish_article(self):
         return self.get_queryset().filter(status='p')
+
+    def search(self, query):
+        lookup = (Q(title__icontains=query) |
+                  Q(description__icontains=query))
+        return self.get_queryset().filter(lookup, status='p').distinct()
 
 
 class Article(models.Model):
