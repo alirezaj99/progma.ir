@@ -1,6 +1,7 @@
 {% extends 'Shared/base.html' %}
 {% load static %}
 {% load humanize %}
+{% block title %}برای برنامه نویسان{% endblock %}
 {% block content %}
     <section class="cta-section theme-bg-light py-5">
         <div class="container text-center">
@@ -30,7 +31,7 @@
                                     href="{% url 'article:article_detail' article.slug %}">{{ article.title }}</a>
                             </h3>
                             <div class="meta mb-1"><span class="date">{{ article.publish|naturaltime }}</span><span
-                                    class="time">5 بازدید</span><span
+                                    class="time">{{ article.hits.count }} بازدید</span><span
                                     class="comment"><a href="#">8 دیدگاه</a></span></div>
                             <div class="intro text-justify">{{ article.description|striptags|truncatewords:50 }}
                             </div>
@@ -44,21 +45,49 @@
                 <p class="alert alert-warning">مقاله ای یافت نشد</p>
             {% endfor %}
             <div class="row">
-                <div class="col-6">
-                    <nav class="blog-nav nav nav-justified my-5">
-                        <a class="nav-link-prev nav-item nav-link rounded sahel mx-1" href="#">قبلی<i
-                                class="arrow-prev fas fa-long-arrow-alt-right sahel"></i></a>
-                        {% comment %}<a class="nav-link-next nav-item nav-link rounded sahel mx-1" href="blog-list.html">بعدی<i
-                        class="arrow-next fas fa-long-arrow-alt-left"></i></a>{% endcomment %}
-                    </nav>
-                </div>
-                <div class="col-6">
-                    <nav class="blog-nav nav nav-justified my-5">
-                        <a class="nav-link-prev nav-item nav-link rounded sahel mx-1" href="#">بعدی<i
-                                class="arrow-prevl fas fa-long-arrow-alt-left sahel"></i></a>
-                        {% comment %}<a class="nav-link-next nav-item nav-link rounded sahel mx-1" href="blog-list.html">بعدی<i
-                        class="arrow-next fas fa-long-arrow-alt-left"></i></a>{% endcomment %}
-                    </nav>
+                {% if page_obj.has_previous and not page_obj.has_next %}
+                    <div class="col-12">
+                        <nav class="blog-nav nav nav-justified my-5">
+                            <a class="nav-link-prev nav-item nav-link rounded sahel mx-1"
+                               href="?page={{ page_obj.previous_page_number }}">قبلی<i
+                                    class="arrow-prev fas fa-long-arrow-alt-right sahel"></i></a>
+                            {% comment %}<a class="nav-link-next nav-item nav-link rounded sahel mx-1" href="blog-list.html">بعدی<i
+                            class="arrow-next fas fa-long-arrow-alt-left"></i></a>{% endcomment %}
+                        </nav>
+                    </div>
+                {% elif page_obj.has_next and not page_obj.has_previous %}
+                    <div class="col-12">
+                        <nav class="blog-nav nav nav-justified my-5">
+                            <a class="nav-link-prev nav-item nav-link rounded sahel mx-1"
+                               href="?page={{ page_obj.next_page_number }}">بعدی<i
+                                    class="arrow-prevl fas fa-long-arrow-alt-left sahel"></i></a>
+                            {% comment %}<a class="nav-link-next nav-item nav-link rounded sahel mx-1" href="blog-list.html">بعدی<i
+                            class="arrow-next fas fa-long-arrow-alt-left"></i></a>{% endcomment %}
+                        </nav>
+                    </div>
+                {% elif page_obj.has_previous and page_obj.has_next %}
+                    <div class="col-6">
+                        <nav class="blog-nav nav nav-justified my-5">
+                            <a class="nav-link-prev nav-item nav-link rounded sahel mx-1"
+                               href="?page={{ page_obj.previous_page_number }}">قبلی<i
+                                    class="arrow-prev fas fa-long-arrow-alt-right sahel"></i></a>
+                            {% comment %}<a class="nav-link-next nav-item nav-link rounded sahel mx-1" href="blog-list.html">بعدی<i
+                            class="arrow-next fas fa-long-arrow-alt-left"></i></a>{% endcomment %}
+                        </nav>
+                    </div>
+                    <div class="col-6">
+                        <nav class="blog-nav nav nav-justified my-5">
+                            <a class="nav-link-prev nav-item nav-link rounded sahel mx-1"
+                               href="?page={{ page_obj.next_page_number }}">بعدی<i
+                                    class="arrow-prevl fas fa-long-arrow-alt-left sahel"></i></a>
+                            {% comment %}<a class="nav-link-next nav-item nav-link rounded sahel mx-1" href="blog-list.html">بعدی<i
+                            class="arrow-next fas fa-long-arrow-alt-left"></i></a>{% endcomment %}
+                        </nav>
+                    </div>
+                {% endif %}
+
+                <div class="col-12 text-center"><p class="text-primary text-center">صفحه {{ page_obj.number }}
+                    از {{ page_obj.paginator.num_pages }}</p>
                 </div>
             </div>
         </div>

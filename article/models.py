@@ -5,6 +5,10 @@ import os
 import random
 from ckeditor.fields import RichTextField
 from django.db.models import Q
+from extensions.utils import jalali_converter
+from django.db.models.signals import post_save
+from django.conf import settings
+from django.core.mail import send_mail
 
 
 def get_filename_ext(filepath):
@@ -42,6 +46,23 @@ class ArticleManager(models.Manager):
 class ArticleTagManager(models.Manager):
     def get_active_tag(self):
         return self.get_queryset().filter(active=True)
+
+
+class IPAddress(models.Model):
+    ip_address = models.GenericIPAddressField(verbose_name="آی پی آدرس")
+    time = models.DateTimeField(auto_now_add=True, verbose_name="زمان ثبت")
+
+    class Meta:
+        verbose_name = "آی پی آدرس"
+        verbose_name_plural = "آی پی آدرس ها"
+
+    def __str__(self):
+        return self.ip_address
+
+    def jtime(self):
+        return jalali_converter(self.time)
+
+    jtime.short_description = "زمان ثبت"
 
 
 class ArticleTag(models.Model):
@@ -83,6 +104,7 @@ class Article(models.Model):
     image_list = models.ImageField(upload_to=upload_image_list_path, verbose_name="تصویر 135*135 مقاله")
     image = models.ImageField(upload_to=upload_image_path, verbose_name="تصویر مقاله")
     tags = models.ManyToManyField(ArticleTag, blank=True, related_name='article_tags', verbose_name='تگ ها / برچسب ها')
+    hits = models.ManyToManyField(IPAddress, blank=True, related_name="article_hits", verbose_name="بازید")
     publish = models.DateTimeField(default=timezone.now, verbose_name="زمان انتشار")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -107,3 +129,17 @@ class Article(models.Model):
         return " - ".join([tag.title for tag in self.tags.get_active_tag()])
 
     tags_str.short_description = 'تگ ها / برچسب ها'
+
+
+def send_email_users(sender, instance, **kwargs):
+    emails = []
+    for user in User.objects.all():
+        emails += user.email.split()
+    subject = 'welcome to progma'
+    message = f'Hi , thank you for registering in {instance.title}.'
+    email_from = settings.EMAIL_HOST_USER
+    recipient_list = emails
+    send_mail(subject, message, email_from, recipient_list)
+
+
+post_save.connect(send_email_users, sender=Article)
