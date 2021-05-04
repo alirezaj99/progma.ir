@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 from .models import Article
-from account.models import User
 
 
 class ArticleList(ListView):
@@ -37,11 +36,5 @@ class ArticleDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
-        return context
 
-# subject = 'welcome to progma'
-#      message = f'Hi {self.request.user.username}, thank you for registering in {self.object.title}.'
-#      email_from = settings.EMAIL_HOST_USER
-#      recipient_list = [self.request.user.email, ]
-#      send_mail(subject, message, email_from, recipient_list)
+        return context

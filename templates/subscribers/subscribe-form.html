@@ -1,0 +1,34 @@
+{% extends 'Shared/base.html' %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+{% block title %}برای برنامه نویسان{% endblock %}
+{% block content %}
+    <section class="cta-section theme-bg-light mb-3 py-5">
+        <div class="container text-center">
+            <h2 class="heading sahel-bold">پروگما | برای برنامه نویسان</h2>
+            <div class="intro sahel ">برای دریافت آخرین مقالات ایمیلت رو وارد کن !</div>
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger">
+                    {% for error in form.non_field_errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <form method="post" class="signup-form form-inline justify-content-center pt-3">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.email|add_class:"form-control ml-md-1 semail sahel" }}
+                </div>
+                <button type="submit" class="btn btn-primary sahel">مشترک شدن</button>
+            </form>
+            {% if form.email.errors %}
+                <div class="alert alert-danger mt-4">
+                    {% for error in form.email.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div><!--//container-->
+    </section>
+{% endblock %}

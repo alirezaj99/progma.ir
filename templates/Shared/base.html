@@ -5,21 +5,14 @@
     {% include 'Shared/__HeaderReferences.html' %}
     {% block add_header_reference %}{% endblock %}
 </head>
-
 <body>
 {% include 'Shared/Header.html' %}
-
 <div class="main-wrapper">
     {% block content %}{% endblock %}
-
     {% include 'Shared/Footer.html' %}
-
 </div><!--//main-wrapper-->
-
 <!-- Javascript -->
 {% include 'Shared/__FooterReferences.html' %}
-
-
 </body>
 </html>
 

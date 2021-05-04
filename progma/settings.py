@@ -26,11 +26,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'ckeditor',
-    'django_cleanup.apps.CleanupConfig',
     'social_django',
+    'django_render_partial',
+    'widget_tweaks',
     # MY APPS
     'account',
     'article',
+    'subscribers',
+    'site_settings',
+    # MUST BE LAST
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [

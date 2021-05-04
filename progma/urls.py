@@ -7,6 +7,7 @@ from account.views import logout_view
 urlpatterns = [
     path('', include("article.urls", namespace="article")),
     path('', include('social_django.urls', namespace='social')),
+    path('', include('subscribers.urls', namespace='subscribers')),
     path('logout/', logout_view, name='logout'),
     path('admin/', admin.site.urls),
 ]
