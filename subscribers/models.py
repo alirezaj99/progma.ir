@@ -13,6 +13,8 @@ class Subscribe(models.Model):
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True, verbose_name='فعال / غیرفعال')
 
+    objects = SubscribeManager()
+
     class Meta:
         verbose_name = "مشترک"
         verbose_name_plural = "مشترک ها"

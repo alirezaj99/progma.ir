@@ -9,6 +9,7 @@ from extensions.utils import jalali_converter
 from django.db.models.signals import post_save
 from django.conf import settings
 from django.core.mail import send_mail
+from subscribers.models import Subscribe
 
 
 def get_filename_ext(filepath):
@@ -131,15 +132,32 @@ class Article(models.Model):
     tags_str.short_description = 'تگ ها / برچسب ها'
 
 
-def send_email_users(sender, instance, **kwargs):
+# def send_email_users(sender, instance, created, **kwargs):
+#     if created:
+#         if instance.status == 'p':
+#             subject = 'welcome to progma'
+#             message = f'Hi , thank you for registering in {instance.title}.'
+#             email_from = settings.EMAIL_HOST_USER
+#             recipient_list = emails
+#             send_mail(subject, message, email_from, recipient_list)
+
+def send_email_users(sender, instance, created, **kwargs):
     emails = []
-    for user in User.objects.all():
-        emails += user.email.split()
-    subject = 'welcome to progma'
-    message = f'Hi , thank you for registering in {instance.title}.'
-    email_from = settings.EMAIL_HOST_USER
-    recipient_list = emails
-    send_mail(subject, message, email_from, recipient_list)
+    for sub in Subscribe.objects.get_active_subscribe():
+        emails += sub.email.split()
+    if created and instance.status == 'p':
+        subject = 'welcome to progma'
+        message = f'Hi , thank you for registering in {instance.title}.'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = emails
+        send_mail(subject, message, email_from, recipient_list)
+    while instance.status == 'p':
+        subject = 'welcome to progma'
+        message = f'Hi , thank you for registering in {instance.title}.'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = emails
+        send_mail(subject, message, email_from, recipient_list)
+        break
 
 
 post_save.connect(send_email_users, sender=Article)

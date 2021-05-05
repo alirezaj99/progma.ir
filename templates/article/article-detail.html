@@ -1,7 +1,6 @@
 {% extends 'Shared/base.html' %}
 {% load static %}
 {% load humanize %}
-
 {% block add_header_reference %}
     <link rel="stylesheet" href="{% static 'comments/comments.css' %}">
 {% endblock %}
@@ -13,7 +12,8 @@
                 <h2 class="title mb-2">{{ object.title }}</h2>
                 <div class="meta mb-3">
                     <span class="date">{{ article.publish|naturaltime }}</span>
-                    <span class="comment">نویسنده : <a href="#">{{ article.author.get_full_name }}</a></span>
+                    <span class="comment">نویسنده : <a href="#">{% if article.author.get_full_name %}
+                        {{ article.author.get_full_name }}{% else %}{{ article.author.username }}{% endif %}</a></span>
                     <span class="time">{{ object.hits.count }} بازدید</span>
                     <span class="comment"><a href="#">4 دیدگاه</a></span>
                 </div>

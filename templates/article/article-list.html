@@ -1,7 +1,6 @@
 {% extends 'Shared/base.html' %}
 {% load static %}
 {% load humanize %}
-{% load render_partial %}
 {% block title %}برای برنامه نویسان{% endblock %}
 {% block content %}
     <section class="cta-section theme-bg-light py-5">
@@ -89,9 +88,6 @@
 
                 <div class="col-12 text-center"><p class="text-primary text-center">صفحه {{ page_obj.number }}
                     از {{ page_obj.paginator.num_pages }}</p>
-                </div>
-                <div class="col-12 intro sahel text-center mt-3">برای دریافت آخرین مقالات از طریق ایمیل <a
-                        href="{% url 'subscribers:subscribe' %}">کلیک</a> کن !
                 </div>
             </div>
         </div>

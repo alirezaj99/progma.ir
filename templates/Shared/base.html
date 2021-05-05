@@ -1,3 +1,4 @@
+{% url 'subscribers:subscribe' as subscribe %}
 <!DOCTYPE html>
 <html lang="fa">
 <head>
@@ -8,7 +9,15 @@
 <body>
 {% include 'Shared/Header.html' %}
 <div class="main-wrapper">
+    {% include 'Shared/messages.html' %}
     {% block content %}{% endblock %}
+    {% if not request.path == subscribe %}
+        <div style="font-size: 1.1rem;background-color: #ffc107 !important"
+             class="col-12 intro sahel-bold text-center p-1">برای
+            دریافت آخرین مقالات از طریق
+            ایمیل <a style="color: red" href="{% url 'subscribers:subscribe' %}">کلیک</a> کن !
+        </div>
+    {% endif %}
     {% include 'Shared/Footer.html' %}
 </div><!--//main-wrapper-->
 <!-- Javascript -->
