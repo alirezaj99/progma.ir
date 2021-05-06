@@ -1,5 +1,6 @@
 {% load static %}
 {% url 'article:article_list' as article_list %}
+{% url 'article:article_save' as article_save %}
 <header class="header text-center">
     <h1 class="blog-name pt-lg-4 mb-0 sahel-bold"><a href="{% url 'article:article_list' %}">برنامه نویسی با پروگما</a>
     </h1>
@@ -34,9 +35,11 @@
                     <a class="nav-link" href="{% url 'article:article_list' %}"><i
                             class="fas fa-newspaper fa-fw ml-2"></i>مقالات</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="blog-post.html"><i class="fas fa-bookmark fa-fw ml-2"></i>ذخیره شده</a>
-                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item {% if request.path == article_save %}active{% endif %}">
+                        <a class="nav-link" href="{{ article_save }}"><i class="fas fa-bookmark fa-fw ml-2"></i>ذخیره
+                            شده</a>
+                    </li>{% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw ml-2"></i>درباره من</a>
                 </li>

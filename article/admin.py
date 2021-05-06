@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article, ArticleTag, IPAddress
+from .models import Article, ArticleTag, IPAddress, SaveArticle
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -31,3 +31,4 @@ class ArticleTagAdmin(admin.ModelAdmin):
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(ArticleTag, ArticleTagAdmin)
 admin.site.register(IPAddress)
+admin.site.register(SaveArticle)

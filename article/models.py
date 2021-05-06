@@ -132,14 +132,23 @@ class Article(models.Model):
     tags_str.short_description = 'تگ ها / برچسب ها'
 
 
-# def send_email_users(sender, instance, created, **kwargs):
-#     if created:
-#         if instance.status == 'p':
-#             subject = 'welcome to progma'
-#             message = f'Hi , thank you for registering in {instance.title}.'
-#             email_from = settings.EMAIL_HOST_USER
-#             recipient_list = emails
-#             send_mail(subject, message, email_from, recipient_list)
+class SaveArticle(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='save_article', verbose_name='کاربر')
+    articles = models.ManyToManyField(Article, related_name='save_article', verbose_name='مقالات', blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "مقاله ذخیره شده"
+        verbose_name_plural = "مقالات ذخیره شده"
+        ordering = ['-created']
+
+    def __str__(self):
+        return str(self.user)
+
+    def get_articles(self):
+        return self.articles
+
 
 def send_email_users(sender, instance, created, **kwargs):
     emails = []
