@@ -49,8 +49,12 @@
                 {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="
-                                {% url 'logout' %}?next={{ request.path }}"><i
-                                class="fas fa-sign-out-alt fa-fw ml-2"></i>خروج</a>
+
+
+                                {% if request.path == article_save %}{% url 'logout' %}{% else %}{% url 'logout' %}?next={{ request.path }}{% endif %}"
+                        >
+
+                            <i class="fas fa-sign-out-alt fa-fw ml-2"></i>خروج</a>
                     </li>
                 {% endif %}
             </ul>

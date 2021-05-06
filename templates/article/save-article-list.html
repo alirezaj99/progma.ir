@@ -30,9 +30,38 @@
                             <h3 class="title mb-1"><a
                                     href="{% url 'article:article_detail' article.slug %}">{{ article.title }}</a>
                             </h3>
-                            <div class="meta mb-1"><span class="date">{{ article.publish|naturaltime }}</span><span
+                            <div style="margin-bottom: -.5rem;" class="meta"><span
+                                    class="date">{{ article.publish|naturaltime }}</span><span
                                     class="time">{{ article.hits.count }} بازدید</span><span
-                                    class="comment"><a href="#">8 دیدگاه</a></span></div>
+                                    class="comment"><a href="#">8 دیدگاه</a></span>
+                                <span class="comment"><a>
+                             {% if user.is_authenticated %}
+                                 <div class="article-tag text-center">
+                                {% if article not in user.save_article.articles.get_publish_article %}
+                                    <form method="post"
+                                          action="{% url 'article:article_save_add' article.pk %}?next={{ request.get_full_path }}">
+                                    {% csrf_token %}
+                                    <button style="padding: 0" class="btn text-danger" type="submit"><i
+                                            style="font-size: 1rem;" class="fas fa-save"></i>
+                                    <span style="font-size: .9rem;" class="mr-1">ذخیره مقاله</span></button>
+                                    </form>
+                                {% else %}
+                                    <form method="post"
+                                          action="{% url 'article:article_save_remove' article.pk %}?next={{ request.get_full_path }}">
+                                    {% csrf_token %}
+                                    <button style="padding: 0" class="btn text-danger" type="submit"><i
+                                            style="font-size: 1rem;"
+                                            class="fas fa-save"></i>
+                                    <span style="font-size: .9rem;" class="mr-1">حذف از ذخیره شده ها</span></button>
+
+                                    </form>
+                                {% endif %}
+
+                            </div>
+                             {% endif %}
+                            </a>
+                                </span>
+                            </div>
                             <div class="intro text-justify">{{ article.description|striptags|truncatewords:50 }}
                             </div>
                             <a class="more-link" href="{% url 'article:article_detail' article.slug %}">&rarr; ادامه

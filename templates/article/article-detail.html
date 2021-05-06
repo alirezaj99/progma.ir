@@ -32,7 +32,7 @@
                     <div class="article-tag text-center">
                         {% if object not in user.save_article.articles.get_publish_article %}
                             <form method="post"
-                                  action="{% url 'article:article_save_add' object.pk %}?next={{ request.path }}">
+                                  action="{% url 'article:article_save_add' object.pk %}?next={{ request.get_full_path }}">
                                 {% csrf_token %}
                                 <button style="padding: 0" class="btn text-danger" type="submit"><i
                                         style="font-size: 1.4rem;"
@@ -42,7 +42,7 @@
                             </form>
                         {% else %}
                             <form method="post"
-                                  action="{% url 'article:article_save_remove' object.pk %}?next={{ request.path }}">
+                                  action="{% url 'article:article_save_remove' object.pk %}?next={{ request.get_full_path }}">
                                 {% csrf_token %}
                                 <button style="padding: 0" class="btn text-danger" type="submit"><i
                                         style="font-size: 1.4rem;"

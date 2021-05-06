@@ -29,7 +29,7 @@ class ArticleSearchList(ListView):
 class SaveArticleList(LoginRequiredMixin, ListView):
     def get_queryset(self):
         save_article = SaveArticle.objects.get(user=self.request.user)
-        articles = save_article.articles.get_publish_article()
+        articles = save_article.articles.get_publish_article().order_by('-article_savearticle_articles.id')
         return articles
 
     template_name = 'article/save-article-list.html'
@@ -67,14 +67,14 @@ def add_save_post(request, **kwargs):
             if request.GET.get("next"):
                 return redirect(request.GET.get("next"))
             else:
-                return HttpResponseRedirect(reverse('article:article_detail', kwargs={'slug': article.slug}))
+                return HttpResponseRedirect(reverse('article:article_list'))
         save_article.articles.add(article)
         messages.success(request, 'مقاله با موفقیت ذخیره شد', 'success')
         save_article.save()
         if request.GET.get("next"):
             return redirect(request.GET.get("next"))
         else:
-            return HttpResponseRedirect(reverse('article:article_detail', kwargs={'slug': article.slug}))
+            return HttpResponseRedirect(reverse('article:article_list'))
     else:
         raise Http404('404 error')
 
@@ -92,13 +92,13 @@ def remove_save_post(request, **kwargs):
             if request.GET.get("next"):
                 return redirect(request.GET.get("next"))
             else:
-                return HttpResponseRedirect(reverse('article:article_detail', kwargs={'slug': article.slug}))
+                return HttpResponseRedirect(reverse('article:article_list'))
         save_article.articles.remove(article)
         messages.success(request, 'مقاله با موفقیت از ذخیره ها حذف شد', 'success')
         save_article.save()
         if request.GET.get("next"):
             return redirect(request.GET.get("next"))
         else:
-            return HttpResponseRedirect(reverse('article:article_detail', kwargs={'slug': article.slug}))
+            return HttpResponseRedirect(reverse('article:article_list'))
     else:
         raise Http404('404 error')
