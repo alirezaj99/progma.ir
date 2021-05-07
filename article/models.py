@@ -177,13 +177,11 @@ def send_email_users(sender, instance, created, **kwargs):
         break
 
 
-post_save.connect(send_email_users, sender=Article)
-
-
 def create_save_article(sender, **kwargs):
     if kwargs['created']:
         save_article = SaveArticle(user=kwargs['instance'])
         save_article.save()
 
 
+post_save.connect(send_email_users, sender=Article)
 post_save.connect(create_save_article, sender=User)

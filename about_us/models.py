@@ -1,9 +1,9 @@
 from django.db import models
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class AboutUs(models.Model):
-    description = RichTextField(verbose_name="توضیحات")
+    description = RichTextUploadingField(verbose_name="توضیحات")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
