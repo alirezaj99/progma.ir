@@ -9,7 +9,9 @@ from extensions.utils import jalali_converter
 from django.db.models.signals import post_save
 from django.conf import settings
 from django.core.mail import send_mail
+from django.template.loader import render_to_string
 from subscribers.models import Subscribe
+from django.shortcuts import reverse
 
 
 def get_filename_ext(filepath):
@@ -124,6 +126,9 @@ class Article(models.Model):
     def author_str(self):
         return str(self.author)
 
+    def get_url(self):
+        return reverse('article:article_detail', kwargs={'slug': self.slug})
+
     author_str.short_description = 'نویسنده'
 
     def tags_str(self):
@@ -154,18 +159,21 @@ def send_email_users(sender, instance, created, **kwargs):
     emails = []
     for sub in Subscribe.objects.get_active_subscribe():
         emails += sub.email.split()
+    content = f'{instance.title}'
+    get_url = instance.get_url()
+    msg_html = render_to_string('email/send-email.html', {'content': content, 'get_url': get_url})
     if created and instance.status == 'p':
-        subject = 'welcome to progma'
-        message = f'Hi , thank you for registering in {instance.title}.'
+        subject = f'پروگما | مقاله جدید | {instance.title}'
+        message = msg_html
         email_from = settings.EMAIL_HOST_USER
         recipient_list = emails
-        send_mail(subject, message, email_from, recipient_list)
+        send_mail(subject, message, email_from, recipient_list, html_message=msg_html)
     while instance.status == 'p':
-        subject = 'welcome to progma'
-        message = f'Hi , thank you for registering in {instance.title}.'
+        subject = f'پروگما | مقاله جدید | {instance.title}'
+        message = msg_html
         email_from = settings.EMAIL_HOST_USER
         recipient_list = emails
-        send_mail(subject, message, email_from, recipient_list)
+        send_mail(subject, message, email_from, recipient_list, html_message=msg_html)
         break
 
 
