@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'article',
     'subscribers',
     'site_settings',
+    'about_us',
     # MUST BE LAST
     'django_cleanup.apps.CleanupConfig',
 ]

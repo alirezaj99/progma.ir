@@ -134,8 +134,7 @@ class Article(models.Model):
 
 class SaveArticle(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='save_article', verbose_name='کاربر')
-    articles = models.ManyToManyField(Article, related_name='save_article', verbose_name='مقالات', blank=True,
-                                      null=True)
+    articles = models.ManyToManyField(Article, related_name='save_article', verbose_name='مقالات', blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
