@@ -3,8 +3,8 @@ from django.utils import timezone
 from account.models import User
 import os
 import random
-from ckeditor.fields import RichTextField
 from django.db.models import Q
+from ckeditor_uploader.fields import RichTextUploadingField
 from extensions.utils import jalali_converter
 from django.db.models.signals import post_save
 from django.conf import settings
@@ -103,7 +103,7 @@ class Article(models.Model):
                                verbose_name="نویسنده")
     title = models.CharField(max_length=400, verbose_name="عنوان مقاله")
     slug = models.SlugField(max_length=200, unique=True, verbose_name="آدرس مقاله")
-    description = RichTextField(verbose_name="محتوا")
+    description = RichTextUploadingField(verbose_name="محتوا")
     image_list = models.ImageField(upload_to=upload_image_list_path, verbose_name="تصویر 135*135 مقاله")
     image = models.ImageField(upload_to=upload_image_path, verbose_name="تصویر مقاله")
     tags = models.ManyToManyField(ArticleTag, blank=True, related_name='article_tags', verbose_name='تگ ها / برچسب ها')

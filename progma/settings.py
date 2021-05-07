@@ -1,5 +1,6 @@
 from pathlib import Path
 from decouple import config
+from extensions import utils
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'ckeditor',
+    'ckeditor_uploader',
     'social_django',
     'django_render_partial',
     'widget_tweaks',
@@ -148,6 +150,12 @@ MEDIA_ROOT = (BASE_DIR / "static_cdn" / "media_root")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'account.User'
+
+# CKEDITOR CONFIG
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+
+CKEDITOR_FILENAME_GENERATOR = 'extensions.utils.get_filename'
 
 CKEDITOR_CONFIGS = {
     'default': {

@@ -9,6 +9,7 @@ urlpatterns = [
     path('', include('social_django.urls', namespace='social')),
     path('', include('subscribers.urls', namespace='subscribers')),
     path('logout/', logout_view, name='logout'),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
 ]
 

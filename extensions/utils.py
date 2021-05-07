@@ -1,5 +1,6 @@
 from . import jalali
 from django.utils import timezone
+from random import randint
 
 
 def jalali_converter(time):
@@ -82,3 +83,9 @@ def jalali_converter_year(time):
     )
 
     return output
+
+
+# ckeditor
+
+def get_filename(filename, request):
+    return f'image-{randint(99, 99999)}'
