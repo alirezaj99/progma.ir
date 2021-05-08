@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
-from progma import settings
+from django.conf import settings
 from account.views import logout_view
 from about_us.views import about_us
+from decouple import config
 
 urlpatterns = [
     path('', include("article.urls", namespace="article")),
@@ -15,7 +16,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
-if settings.DEBUG:
+if not config("DEBUG", cast=bool):
     # ADD ROOT STATIC FILES
     urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     # ADD MEDIA STATIC FILES
