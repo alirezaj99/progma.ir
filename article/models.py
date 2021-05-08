@@ -109,9 +109,10 @@ class Article(models.Model):
     tags = models.ManyToManyField(ArticleTag, blank=True, related_name='article_tags', verbose_name='تگ ها / برچسب ها')
     hits = models.ManyToManyField(IPAddress, blank=True, related_name="article_hits", verbose_name="بازید")
     publish = models.DateTimeField(default=timezone.now, verbose_name="زمان انتشار")
+    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='d', verbose_name="وضعیت")
+    send_email = models.BooleanField(default=True, verbose_name='ارسال ایمیل')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='d', verbose_name="وضعیت")
 
     objects = ArticleManager()
 
@@ -162,19 +163,15 @@ def send_email_users(sender, instance, created, **kwargs):
     content = f'{instance.title}'
     get_url = instance.get_url()
     msg_html = render_to_string('email/send-email.html', {'content': content, 'get_url': get_url})
-    if created and instance.status == 'p':
+    if instance.send_email == True and instance.status == 'p':
         subject = f'پروگما | مقاله جدید | {instance.title}'
         message = msg_html
         email_from = settings.EMAIL_HOST_USER
         recipient_list = emails
         send_mail(subject, message, email_from, recipient_list, html_message=msg_html)
-    while instance.status == 'p':
-        subject = f'پروگما | مقاله جدید | {instance.title}'
-        message = msg_html
-        email_from = settings.EMAIL_HOST_USER
-        recipient_list = emails
-        send_mail(subject, message, email_from, recipient_list, html_message=msg_html)
-        break
+        article = Article.objects.get(id=instance.id)
+        article.send_email = False
+        article.save()
 
 
 def create_save_article(sender, **kwargs):

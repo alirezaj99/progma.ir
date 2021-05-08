@@ -8,6 +8,7 @@ class ArticleAdmin(admin.ModelAdmin):
                     'slug',
                     'tags_str',
                     'status',
+                    'send_email',
                     ]
     list_filter = ['status', 'publish', ]
     list_editable = ['status']
