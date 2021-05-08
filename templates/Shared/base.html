@@ -1,13 +1,14 @@
+{% load render_partial %}
 {% url 'subscribers:subscribe' as subscribe %}
 <!DOCTYPE html>
 <html lang="fa">
 <head>
     <title>پروگما | {% block title %}{% endblock %}</title>
-    {% include 'Shared/__HeaderReferences.html' %}
+    {% render_partial 'progma.views.site_header_references' %}
     {% block add_header_reference %}{% endblock %}
 </head>
 <body>
-{% include 'Shared/Header.html' %}
+{% render_partial 'progma.views.site_sidebar' %}
 <div class="main-wrapper">
     {% include 'Shared/messages.html' %}
     {% block content %}{% endblock %}

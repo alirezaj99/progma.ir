@@ -1,6 +1,6 @@
-{% load static %}
 {% url 'article:article_list' as article_list %}
 {% url 'article:article_save' as article_save %}
+{% url 'about_us' as about_us %}
 <header class="header text-center">
     <h1 class="blog-name pt-lg-4 mb-0 sahel-bold"><a href="{% url 'article:article_list' %}">برنامه نویسی با پروگما</a>
     </h1>
@@ -14,18 +14,27 @@
 
         <div id="navigation" class="collapse navbar-collapse flex-column">
             <div class="profile-section pt-3 pt-lg-0">
-                <img class="profile-image mb-3 rounded-circle mx-auto" src="{% static 'images/profile.png' %}"
-                     alt="image">
+                <img class="profile-image mb-3 rounded-circle mx-auto" src="{{ settings.site_logo.url }}"
+                     alt="پروگما">
 
-                <div class="bio mb-3">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                    گرافیک است.<br><a class="text-decoration-none a-m-h" href="#">منو بیشتر بشناس ...</a></div>
+                <div class="bio mb-3">{{ settings.short_about_us }}
+                    <br>
+                    <a class="text-decoration-none a-m-h" href="{% url 'about_us' %}">منو بیشتر بشناس ...</a></div>
                 <!--//bio-->
                 <ul class="social-list list-inline py-3 mx-auto">
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-github-alt fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
-                    <li class="list-inline-item"><a href="#"><i class="fab fa-codepen fa-fw"></i></a></li>
+                    <li class="list-inline-item"><a target="_blank" href="https://twitter.com/{{ settings.twitter }}"><i
+                            class="fab fa-twitter fa-fw"></i></a></li>
+                    <li class="list-inline-item"><a target="_blank" href="https://t.me/{{ settings.telegram }}"><i
+                            class="fab fa-telegram"></i></a>
+                    </li>
+                    <li class="list-inline-item"><a target="_blank" href="https://github.com/{{ settings.github }}"><i
+                            class="fab fa-github fa-fw"></i></a>
+                    </li>
+                    <li class="list-inline-item"><a target="_blank"
+                                                    href="https://www.instagram.com/{{ settings.instagram }}"><i
+                            class="fab fa-instagram fa-fw"></i></a></li>
+                    <li class="list-inline-item"><a target="_blank" href="https://youtube.com/{{ settings.youtube }}"><i
+                            class="fab fa-youtube fa-fw"></i></a></li>
                 </ul><!--//social-list-->
                 <hr style="margin-top: 20px;margin-bottom: 20px;border: 0;border-top: 1px solid #FFFFFF;">
             </div><!--//profile-section-->
@@ -40,8 +49,8 @@
                         <a class="nav-link" href="{{ article_save }}"><i class="fas fa-bookmark fa-fw ml-2"></i>ذخیره
                             شده</a>
                     </li>{% endif %}
-                <li class="nav-item">
-                    <a class="nav-link" href="about.html"><i class="fas fa-user fa-fw ml-2"></i>درباره من</a>
+                <li class="nav-item {% if request.path == about_us %}active{% endif %}">
+                    <a class="nav-link" href="{{ about_us }}"><i class="fas fa-user fa-fw ml-2"></i>درباره من</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="about.html"><i class="fas fa-phone fa-fw ml-2"></i>تماس با من</a>
@@ -49,6 +58,10 @@
                 {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="
+
+
+
+
 
 
                                 {% if request.path == article_save %}{% url 'logout' %}{% else %}{% url 'logout' %}?next={{ request.path }}{% endif %}"
