@@ -1,11 +1,13 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views.generic import ListView, DetailView
-from .models import Article, SaveArticle
+from .models import Article, SaveArticle, Comment
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
+from .forms import CommentForm
+from django.views.generic.edit import FormMixin
 
 
 class ArticleList(ListView):
@@ -36,9 +38,13 @@ class SaveArticleList(LoginRequiredMixin, ListView):
     paginate_by = 10
 
 
-class ArticleDetail(DetailView):
+class ArticleDetail(FormMixin, DetailView):
     # queryset = Article.objects.get_publish_article()
     template_name = 'article/article-detail.html'
+    form_class = CommentForm
+
+    def get_success_url(self):
+        return reverse('article:article_detail', kwargs={'slug': self.object.slug})
 
     def get_object(self):
         article = get_object_or_404(Article.objects.get_publish_article(),
@@ -52,6 +58,25 @@ class ArticleDetail(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            messages.success(request, 'دیدگاه تو با موفقیت ثبت شد ، منتظر تایید باش', 'success')
+            return self.form_valid(form)
+        else:
+            messages.error(request, 'یه مشکلی هست دوباره سعی کن !', 'danger')
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        if self.request.user.is_authenticated:
+            self.obj = form.save(commit=False)
+            self.obj.article = self.object
+            self.obj.user = self.request.user
+            self.obj.status = False
+            form.save()
+        return super(ArticleDetail, self).form_valid(form)
 
 
 @login_required()

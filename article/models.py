@@ -51,6 +51,11 @@ class ArticleTagManager(models.Manager):
         return self.get_queryset().filter(active=True)
 
 
+class CommentManager(models.Manager):
+    def get_active_comment(self):
+        return self.get_queryset().filter(active=True)
+
+
 class IPAddress(models.Model):
     ip_address = models.GenericIPAddressField(verbose_name="آی پی آدرس")
     time = models.DateTimeField(auto_now_add=True, verbose_name="زمان ثبت")
@@ -154,6 +159,31 @@ class SaveArticle(models.Model):
 
     def get_articles(self):
         return self.articles
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='user_comment',
+                             verbose_name='کاربر')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='article_comment', verbose_name='مقاله')
+    content = models.TextField(verbose_name='نظر')
+    active = models.BooleanField(default=False, verbose_name="فعال / غیرفعال")
+    created = models.DateTimeField(auto_now_add=True, verbose_name="زمان ثبت")
+    updated = models.DateTimeField(auto_now=True, verbose_name="زمان ویرایش")
+
+    objects = CommentManager()
+
+    class Meta:
+        verbose_name = "دیدگاه مقالات"
+        verbose_name_plural = "دیدگاه های مقالات"
+        ordering = ['-created']
+
+    def __str__(self):
+        return f'{str(self.article)} - {str(self.user)} - {self.content[0:70]}'
+
+    def jtime(self):
+        return jalali_converter(self.created)
+
+    jtime.short_description = "زمان ثبت"
 
 
 def send_email_users(sender, instance, created, **kwargs):

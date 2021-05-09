@@ -16,7 +16,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
-if not config("DEBUG", cast=bool):
+if settings.DEBUG:
     # ADD ROOT STATIC FILES
     urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     # ADD MEDIA STATIC FILES

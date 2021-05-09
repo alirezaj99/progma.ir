@@ -59,14 +59,7 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="
 
-
-
-
-
-
-                                {% if request.path == article_save %}{% url 'logout' %}{% else %}{% url 'logout' %}?next={{ request.path }}{% endif %}"
-                        >
-
+                                {% if request.path == article_save %}{% url 'logout' %}{% else %}{% url 'logout' %}?next={{ request.path }}{% endif %}">
                             <i class="fas fa-sign-out-alt fa-fw ml-2"></i>خروج</a>
                     </li>
                 {% endif %}

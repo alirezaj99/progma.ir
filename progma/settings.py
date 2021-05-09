@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'social_django',
     'django_render_partial',
     'widget_tweaks',
+    'crispy_forms',
     # MY APPS
     'account',
     'article',

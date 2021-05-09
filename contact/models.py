@@ -16,3 +16,5 @@ class Contact(models.Model):
         verbose_name = "تماس با ما"
         verbose_name_plural = "تماس های با ما"
         ordering = ['-time']
+
+
