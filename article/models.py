@@ -53,7 +53,10 @@ class ArticleTagManager(models.Manager):
 
 class CommentManager(models.Manager):
     def get_active_comment(self):
-        return self.get_queryset().filter(active=True)
+        return self.get_queryset().filter(active=True, parent__isnull=True)
+
+    def get_active_reply(self):
+        return self.get_queryset().filter(active=True, parent__isnull=False)
 
 
 class IPAddress(models.Model):
@@ -166,6 +169,8 @@ class Comment(models.Model):
                              verbose_name='کاربر')
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='article_comment', verbose_name='مقاله')
     content = models.TextField(verbose_name='نظر')
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.SET_NULL, related_name='replies',
+                               verbose_name='زیر نظر')
     active = models.BooleanField(default=False, verbose_name="فعال / غیرفعال")
     created = models.DateTimeField(auto_now_add=True, verbose_name="زمان ثبت")
     updated = models.DateTimeField(auto_now=True, verbose_name="زمان ویرایش")

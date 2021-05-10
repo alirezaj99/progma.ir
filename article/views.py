@@ -75,6 +75,12 @@ class ArticleDetail(FormMixin, DetailView):
             self.obj.article = self.object
             self.obj.user = self.request.user
             self.obj.status = False
+            try:
+                # id integer e.g. 15
+                self.obj.parent_id = int(self.request.POST.get('parent_id'))
+            except:
+                self.obj.parent_id = None
+
             form.save()
         return super(ArticleDetail, self).form_valid(form)
 

@@ -18,7 +18,8 @@
                     <span class="comment">نویسنده : <a href="#">{% if object.author.get_full_name %}
                         {{ object.author.get_full_name }}{% else %}{{ object.author.username }}{% endif %}</a></span>
                     <span class="time">{{ object.hits.count }} بازدید</span>
-                    <span class="comment"><a href="#article-comment">{{ article.article_comment.get_active_comment.count }} دیدگاه</a></span>
+                    <span class="comment"><a
+                            href="#article-comment">{{ article.article_comment.get_active_comment.count }} دیدگاه</a></span>
                 </div>
             </header>
             <div class="blog-post-body">
@@ -96,26 +97,54 @@
                                                     {% if comment.user.get_full_name %}
                                                         {{ comment.user.get_full_name }}{% else %}
                                                         {{ comment.user.username }}{% endif %}</a>
-                                                    <i class="mr-2" class="pull-right"><a
-                                                            href="#"><small>پاسخ</small></a></i>
+                                                    <i class="mr-2" class="pull-right"><a class=""
+                                                                                          data-toggle="collapse"
+                                                                                          href="#collapseExample{{ comment.id }}"
+                                                                                          role="button"
+                                                                                          aria-expanded="false"
+                                                                                          aria-controls="collapseExample"><small>پاسخ
+                                                        ({{ comment.replies.get_active_reply.count }})</small></a></i>
                                                 </p>
                                                 <p class="text-justify">
                                                     {{ comment.content }}
                                                 </p>
                                             </div>
-                                            {% comment %}<ul class="comments reply">
-                                            <li class="clearfix">
-                                                <div class="post-comments">
-                                                    <p class="meta">1 روز پیش <a class="mr-1" href="#">علیرضا</a>
-                                                        <i class="mr-2" class="pull-right"><a
-                                                                href="#"><small>پاسخ</small></a></i>
-                                                    </p>
-                                                    <p>
-                                                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم
-                                                    </p>
+                                            <div class="collapse" id="collapseExample{{ comment.id }}">
+                                                <div class="media-body mb-3 text-center">
+
+                                                    <form method="post">
+                                                        {% csrf_token %}
+
+                                                        <div class="form-group">
+                                                            {% render_field form.content class="form-control rounded-lg border" rows="1" placeholder="نوشتن پاسخ ..." %}
+
+                                                        </div>
+                                                        <!-- Hidden input for parent comment.id -->
+                                                        <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                                                        <button type="submit" class="btn btn-sm btn-primary">ارسال
+                                                        </button>
+                                                    </form>
                                                 </div>
-                                            </li>
-                                        </ul>{% endcomment %}
+                                                {% for reply in comment.replies.get_active_reply %}
+                                                    <ul class="comments reply">
+                                                        <li class="clearfix">
+                                                            <div class="post-comments reply-background">
+                                                                <p class="meta">{{ reply.created|naturaltime }} <a
+                                                                        class="mr-1" href="#">
+                                                                    {% if reply.user.get_full_name %}
+                                                                        {{ reply.user.get_full_name }}{% else %}
+                                                                        {{ reply.user.username }}{% endif %}</a>
+                                                                </p>
+                                                                <p>
+                                                                    {{ reply.content }}
+                                                                </p>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                {% endfor %}
+                                            </div>
+
+
                                         </li>
                                     {% empty %}
                                         <p class="alert alert-warning text-center">هنوز نظری ثبت نشده ، تو اولین نظر رو

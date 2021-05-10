@@ -89,6 +89,11 @@ hr {
 
 
 .reply {
-    margin-right: 60px !important;
+    margin-right: 40px !important;
     margin-left: 0px !important;
+}
+
+.reply-background {
+    background: #e8ffff !important;
+
 }
