@@ -19,7 +19,7 @@
                         {{ object.author.get_full_name }}{% else %}{{ object.author.username }}{% endif %}</a></span>
                     <span class="time">{{ object.hits.count }} بازدید</span>
                     <span class="comment"><a
-                            href="#article-comment">{{ article.article_comment.get_active_comment.count }} دیدگاه</a></span>
+                            href="#article-comment">{{ object.article_comment.get_active_comment.count }} دیدگاه</a></span>
                 </div>
             </header>
             <div class="blog-post-body">

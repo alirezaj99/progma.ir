@@ -41,7 +41,7 @@
                             <div class="meta"><span
                                     class="date">{{ article.publish|naturaltime }}</span><span
                                     class="time">{{ article.hits.count }} بازدید</span><span
-                                    class="comment"><a href="#">8 دیدگاه</a></span>
+                                    class="comment"><a href="#">{{ article.article_comment.get_active_comment.count }} دیدگاه</a></span>
                                 <span class="comment"><a>
                              {% if user.is_authenticated %}
                                  <div class="article-tag text-center">
