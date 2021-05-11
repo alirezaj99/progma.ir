@@ -110,21 +110,27 @@
                                                 </p>
                                             </div>
                                             <div class="collapse" id="collapseExample{{ comment.id }}">
-                                                <div class="media-body mb-3 text-center">
+                                                {% if user.is_authenticated %}
+                                                    <div class="media-body mb-3 text-center">
+                                                        <form method="post">
+                                                            {% csrf_token %}
 
-                                                    <form method="post">
-                                                        {% csrf_token %}
+                                                            <div class="form-group">
+                                                                {% render_field form.content class="form-control rounded-lg border" rows="1" placeholder="نوشتن پاسخ ..." %}
 
-                                                        <div class="form-group">
-                                                            {% render_field form.content class="form-control rounded-lg border" rows="1" placeholder="نوشتن پاسخ ..." %}
-
-                                                        </div>
-                                                        <!-- Hidden input for parent comment.id -->
-                                                        <input type="hidden" name="parent_id" value="{{ comment.id }}">
-                                                        <button type="submit" class="btn btn-sm btn-primary">ارسال
-                                                        </button>
-                                                    </form>
-                                                </div>
+                                                            </div>
+                                                            <!-- Hidden input for parent comment.id -->
+                                                            <input type="hidden" name="parent_id"
+                                                                   value="{{ comment.id }}">
+                                                            <button type="submit" class="btn btn-sm btn-primary">ارسال
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                {% else %}
+                                                    <p class="alert alert-danger text-center">برای ثبت پاسخ <a
+                                                            href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">ورود</a>
+                                                        کنید</p>
+                                                {% endif %}
                                                 {% for reply in comment.replies.get_active_reply %}
                                                     <ul class="comments reply">
                                                         <li class="clearfix">
@@ -143,8 +149,6 @@
                                                     </ul>
                                                 {% endfor %}
                                             </div>
-
-
                                         </li>
                                     {% empty %}
                                         <p class="alert alert-warning text-center">هنوز نظری ثبت نشده ، تو اولین نظر رو
