@@ -1,7 +1,7 @@
 {% url 'article:article_list' as article_list %}
 {% url 'article:article_search' as article_search %}
 {% url 'article:article_save' as article_save %}
-{% url 'about_us' as about_us %}
+{% url 'about_us:about_us' as about_us %}
 {% url 'contact:create_contact' as contact %}
 <header class="header text-center">
     <h1 class="blog-name pt-lg-4 mb-0 sahel-bold"><a href="{% url 'article:article_list' %}">برنامه نویسی با پروگما</a>
@@ -21,7 +21,7 @@
 
                 <div class="bio mb-3">{{ settings.short_about_us }}
                     <br>
-                    <a class="text-decoration-none a-m-h" href="{% url 'about_us' %}">منو بیشتر بشناس ...</a></div>
+                    <a class="text-decoration-none a-m-h" href="{{ about_us }}">منو بیشتر بشناس ...</a></div>
                 <!--//bio-->
                 <ul class="social-list list-inline py-3 mx-auto">
                     <li class="list-inline-item"><a target="_blank" href="https://twitter.com/{{ settings.twitter }}"><i
