@@ -10,6 +10,7 @@ urlpatterns = [
     path('', include("article.urls", namespace="article")),
     path('', include('social_django.urls', namespace='social')),
     path('', include('subscribers.urls', namespace='subscribers')),
+    path('', include('contact.urls', namespace='contact')),
     path('about-us/', about_us, name='about_us'),
     path('logout/', logout_view, name='logout'),
     path('ckeditor/', include('ckeditor_uploader.urls')),

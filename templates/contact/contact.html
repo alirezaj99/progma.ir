@@ -1,0 +1,72 @@
+{% extends 'Shared/base.html' %}
+{% load widget_tweaks %}
+{% block title %}ارتباط با ما{% endblock %}
+{% block content %}
+    <article class="blog-post px-3 py-5 p-md-5">
+        <div class="container">
+            <div class="blog-post-body">
+                <div class="container text-center mb-3">
+                    <h2 class="heading sahel-bold">پروگما | ارتباط با ما</h2>
+                    <div class="intro sahel ">پیام ، انتقاد ، پیشنهاد ، مشکل در سایت و ...</div>
+                </div>
+                <form method="post">
+                    <div class="row">
+                        {% csrf_token %}
+                        <div class="col-md-4 mt-2">{% render_field form.name class="form-control rounded-lg border" rows="1" placeholder="نام..." %}</div>
+                        <div class="col-md-4 mt-2">{% render_field form.email class="form-control rounded-lg border" rows="1" placeholder="ایمیل..." %}</div>
+                        <div class="col-md-4 mt-2">{% render_field form.subject class="form-control rounded-lg border" rows="1" placeholder="موضوع..." %}</div>
+                        <div class="col-md-12 mt-2">{% render_field form.message class="form-control rounded-lg border" rows="5" placeholder="پیام..." %}</div>
+                        <div class="col-12 text-center mt-2">
+                            <button type="submit" class="btn btn-sm btn-primary">ارسال
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-12 mt-2">
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% if form.name.errors %}
+                            <div class="alert alert-danger my-1">
+                                {% for error in form.name.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% if form.email.errors %}
+                            <div class="alert alert-danger my-1">
+                                {% for error in form.email.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% if form.subject.errors %}
+                            <div class="alert alert-danger my-1">
+                                {% for error in form.subject.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        {% if form.message.errors %}
+                            <div class="alert alert-danger my-1">
+                                {% for error in form.message.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div>
+
+                </div>
+            </div>
+        </div>
+
+    </article>
+{% endblock %}
