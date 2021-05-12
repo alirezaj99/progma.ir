@@ -3,6 +3,7 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 from account.views import logout_view
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('', include("article.urls", namespace="article")),
@@ -10,8 +11,10 @@ urlpatterns = [
     path('', include('subscribers.urls', namespace='subscribers')),
     path('', include('contact.urls', namespace='contact')),
     path('', include('about_us.urls', namespace='about_us')),
+    path('', include('account.urls', namespace='account')),
     path('logout/', logout_view, name='logout'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('admin/login/', RedirectView.as_view(url='/')),
     path('admin/', admin.site.urls),
 ]
 
