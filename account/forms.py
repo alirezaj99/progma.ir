@@ -1,11 +1,12 @@
 from django import forms
 from django.core.exceptions import ValidationError
-
+from nocaptcha_recaptcha.fields import NoReCaptchaField
 from .models import User
-from django.contrib.auth.forms import UserCreationForm
-
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 class CreateUserForm(UserCreationForm):
+    captcha = NoReCaptchaField()
+
     def __init__(self, *args, **kwargs):
         super(CreateUserForm, self).__init__(*args, **kwargs)
 
@@ -31,4 +32,21 @@ class CreateUserForm(UserCreationForm):
         username = self.cleaned_data.get('username')
         if len(username) < 7:
             raise ValidationError('نام کاربری باید حداقل 7 کارکتر باشد')
-        return super(CreateUserForm, self).clean_username()
+        return username
+
+
+class LoginForm(AuthenticationForm):
+    captcha = NoReCaptchaField()
+
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+
+        self.fields['username'].required = True
+        self.fields['password'].required = True
+
+    class Meta:
+        model = User
+        fields = [
+            'username',
+            'password'
+        ]

@@ -20,5 +20,5 @@ class CreateContact(CreateView):
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, 'یه مشکلی هست ، ببین ارور چی میگه !', 'danger')
+        messages.error(self.request, 'یه مشکلی هست ، ببین ارور چی میگه ! ( اعتبار سنجی یادت نره )', 'danger')
         return super().form_invalid(form)

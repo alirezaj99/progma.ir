@@ -5,12 +5,13 @@ from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from .models import User
-from .forms import CreateUserForm
+from .forms import CreateUserForm, LoginForm
 from django.contrib.auth.mixins import UserPassesTestMixin
 
 
 class Login(LoginView):
     redirect_authenticated_user = reverse_lazy('article:article_list')
+    form_class = LoginForm
 
     def get_success_url(self):
         user = self.request.user
@@ -24,7 +25,7 @@ class Login(LoginView):
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, 'یه مشکلی هست ، ببین ارور چی میگه !', 'danger')
+        messages.error(self.request, 'یه مشکلی هست ، ببین ارور چی میگه ! ( اعتبار سنجی یادت نره )', 'danger')
         return super().form_invalid(form)
 
 
@@ -38,7 +39,6 @@ def logout_view(request):
 
 
 class Register(UserPassesTestMixin, CreateView):
-    redirect_authenticated_user = reverse_lazy('article:article_list')
     model = User
     success_url = reverse_lazy('account:login')
     form_class = CreateUserForm
@@ -53,5 +53,5 @@ class Register(UserPassesTestMixin, CreateView):
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, 'یه مشکلی هست ، ببین ارور چی میگه !', 'danger')
+        messages.error(self.request, 'یه مشکلی هست ، ببین ارور چی میگه ! ( اعتبار سنجی یادت نره )', 'danger')
         return super().form_invalid(form)

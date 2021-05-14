@@ -26,12 +26,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    # INSTALLED APPS
     'ckeditor',
     'ckeditor_uploader',
     'social_django',
     'django_render_partial',
     'widget_tweaks',
     'crispy_forms',
+    'nocaptcha_recaptcha',
     # MY APPS
     'account',
     'article',
@@ -193,3 +195,8 @@ EMAIL_PORT = config('EMAIL_PORT')
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+
+# re Captcha
+
+NORECAPTCHA_SITE_KEY = config('NORECAPTCHA_SITE_KEY')
+NORECAPTCHA_SECRET_KEY = config('NORECAPTCHA_SECRET_KEY')

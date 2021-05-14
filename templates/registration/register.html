@@ -84,6 +84,10 @@
                         <div class="col-md-12 mt-2">
                             <label>{{ form.password2.label }}</label>{% render_field form.password2 class="form-control rounded-lg border" rows="1" placeholder="تکرار رمرعبور..." %}
                         </div>
+                        <div class="col-md-12 mt-2">
+                            <script src='https://www.google.com/recaptcha/api.js'></script>
+                            {{ form.captcha }}
+                        </div>
                         <div class="col-12 text-center mt-2">
                             <button type="submit" class="btn btn-sm btn-primary">ثبت نام
                             </button>
@@ -91,7 +95,14 @@
 
                     </div>
                 </form>
-
+                <div class="row">
+                    <div class="col-12 text-center mt-2">
+                        <a class="mb-3 btn btn-warning text-dark" style="height: auto"
+                           href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.get_full_path }}">ورود
+                            با
+                            گوگل <i class="fab fa-google"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
 
