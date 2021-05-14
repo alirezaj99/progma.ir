@@ -195,9 +195,9 @@ def send_email_users(sender, instance, created, **kwargs):
     emails = []
     for sub in Subscribe.objects.get_active_subscribe():
         emails += sub.email.split()
-    content = f'{instance.title}'
+    content = instance
     get_url = instance.get_url()
-    msg_html = render_to_string('email/send-email.html', {'content': content, 'get_url': get_url})
+    msg_html = render_to_string('email/new-article-send-email.html', {'content': content, 'get_url': get_url})
     if instance.send_email == True and instance.status == 'p':
         subject = f'پروگما | مقاله جدید | {instance.title}'
         message = msg_html
