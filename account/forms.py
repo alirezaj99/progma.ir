@@ -1,11 +1,12 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from nocaptcha_recaptcha.fields import NoReCaptchaField
+from captcha.fields import ReCaptchaField
 from .models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
+
 class CreateUserForm(UserCreationForm):
-    captcha = NoReCaptchaField()
+    captcha = ReCaptchaField()
 
     def __init__(self, *args, **kwargs):
         super(CreateUserForm, self).__init__(*args, **kwargs)
@@ -36,7 +37,7 @@ class CreateUserForm(UserCreationForm):
 
 
 class LoginForm(AuthenticationForm):
-    captcha = NoReCaptchaField()
+    captcha = ReCaptchaField()
 
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)

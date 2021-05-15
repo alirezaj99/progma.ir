@@ -1,10 +1,10 @@
 from django import forms
 from .models import Contact
-from nocaptcha_recaptcha.fields import NoReCaptchaField
+from captcha.fields import ReCaptchaField
 
 
 class CreateContactForm(forms.ModelForm):
-    captcha = NoReCaptchaField()
+    captcha = ReCaptchaField()
 
     class Meta:
         model = Contact

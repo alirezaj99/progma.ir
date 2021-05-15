@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'django_render_partial',
     'widget_tweaks',
     'crispy_forms',
-    'nocaptcha_recaptcha',
+    'captcha',
     # MY APPS
     'account',
     'article',
@@ -198,5 +198,5 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
 # re Captcha
 
-NORECAPTCHA_SITE_KEY = config('NORECAPTCHA_SITE_KEY')
-NORECAPTCHA_SECRET_KEY = config('NORECAPTCHA_SECRET_KEY')
+RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
+RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
