@@ -19,9 +19,10 @@
                 <img class="profile-image mb-3 rounded-circle mx-auto" src="{{ settings.site_logo.url }}"
                      alt="پروگما">
 
-                <div class="bio mb-3">{{ settings.short_about_us }}
-                    <br>
-                    <a class="text-decoration-none a-m-h" href="{{ about_us }}">منو بیشتر بشناس ...</a></div>
+                <div class="bio mb-3">{{ settings.short_about_us }}</div>
+                <div class="m-0">
+                    <a class="text-decoration-none a-m-h" href="{{ about_us }}">پروگما رو بیشتر بشناس ...</a>
+                </div>
                 <!--//bio-->
                 <ul class="social-list list-inline py-3 mx-auto">
                     <li class="list-inline-item"><a target="_blank" href="https://twitter.com/{{ settings.twitter }}"><i
@@ -67,11 +68,6 @@
 
 
 
-
-
-
-
-
                                 {% if request.path == article_save %}{% url 'logout' %}{% else %}{% url 'logout' %}?next={{ request.path }}{% endif %}">
                             <i class="fas fa-sign-out-alt fa-fw ml-2"></i>خروج</a>
                     </li>
@@ -82,16 +78,18 @@
                 {% if not user.is_authenticated %}
                     <div class="col-md-12 text-center">
                         <button class="btn btn-warning text-dark mb-3">
-                            <a class="text-dark" href="{% url 'account:login' %}?next={{ request.get_full_path }}">ورود</a>
+                            <a class="text-dark"
+                               href="{% url 'account:login' %}?next={{ request.get_full_path }}">ورود</a>
                             / <a class="text-dark" href="{% url 'account:register' %}">ثبت نام</a>
                         </button>
                     </div>
 
                     <div class="col-md-12">
-                        <a class="mb-3 btn btn-warning text-dark" style="height: auto"
-                           href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.get_full_path }}">ورود
-                            با
-                            گوگل <i class="fab fa-google"></i></a>
+                        <button class="mb-3 btn btn-warning text-dark">
+                            <a class="text-dark"
+                               href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.get_full_path }}"
+                               style="height: auto">ورود ب گوگل <i class="fab fa-google"></i></a>
+                        </button>
                     </div>
 
                 {% else %}

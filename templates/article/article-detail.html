@@ -15,7 +15,7 @@
                 <h2 class="title mb-2">{{ object.title }}</h2>
                 <div class="meta mb-3">
                     <span class="date">{{ object.publish|naturaltime }}</span>
-                    <span class="comment">نویسنده : <a href="#">{% if object.author.get_full_name %}
+                    <span class="comment">نویسنده : <a>{% if object.author.get_full_name %}
                         {{ object.author.get_full_name }}{% else %}{{ object.author.username }}{% endif %}</a></span>
                     <span class="time">{{ object.hits.count }} بازدید</span>
                     <span class="comment"><a
@@ -81,7 +81,7 @@
                                 </div>
                             {% else %}
                                 <p class="alert alert-danger text-center">برای ثبت دیدگاه <a
-                                        href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">ورود</a>
+                                        href="{% url 'account:login' %}?next={{ request.path }}">ورود</a>
                                     کنید</p>
                             {% endif %}
                         </div>
@@ -128,7 +128,7 @@
                                                     </div>
                                                 {% else %}
                                                     <p class="alert alert-danger text-center">برای ثبت پاسخ <a
-                                                            href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">ورود</a>
+                                                            href="{% url 'account:login' %}?next={{ request.path }}">ورود</a>
                                                         کنید</p>
                                                 {% endif %}
                                                 {% for reply in comment.replies.get_active_reply %}
@@ -151,8 +151,11 @@
                                             </div>
                                         </li>
                                     {% empty %}
-                                        <p class="alert alert-warning text-center">هنوز نظری ثبت نشده ، تو اولین نظر رو
-                                            ثبت کن</p>
+                                        {% if user.is_authenticated %}
+                                            <p class="alert alert-warning text-center">هنوز نظری ثبت نشده ، تو اولین نظر
+                                                رو
+                                                ثبت کن</p>
+                                        {% endif %}
                                     {% endfor %}
                                 </ul>
                             </div>

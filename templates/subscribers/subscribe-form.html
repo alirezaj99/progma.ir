@@ -15,10 +15,21 @@
             {% endif %}
             <form method="post" class="signup-form form-inline justify-content-center pt-3">
                 {% csrf_token %}
-                <div class="form-group">
-                    {{ form.email|add_class:"form-control ml-md-1 semail sahel" }}
+                <div class="row form-group text-center">
+                    <div class="col-md-12 mt-3">
+                        {% render_field form.email class="form-control ml-md-1 semail sahel" placeholder="ایمیل تو ..." %}
+                    </div>
+                    <div class="col-md-12 mt-3 text-center">
+                        <div class="text-center d-inline-block ">
+                            <script src='https://www.google.com/recaptcha/api.js'></script>
+                            {{ form.captcha }}
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-3">
+                        <button type="submit" class="btn btn-primary sahel">مشترک شدن</button>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary sahel">مشترک شدن</button>
+
             </form>
             {% if form.email.errors %}
                 <div class="alert alert-danger mt-4">
