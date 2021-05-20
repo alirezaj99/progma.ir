@@ -1,12 +1,23 @@
 from django import forms
 from django.core.exceptions import ValidationError
 from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
 from .models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 class CreateUserForm(UserCreationForm):
-    captcha = ReCaptchaField()
+    captcha = ReCaptchaField(
+        label='اعتبار سنجی',
+        widget=ReCaptchaV2Checkbox(
+            api_params={
+                'hl': 'fa'
+            }
+        ),
+        error_messages={
+            'required': 'لطفا اعتبار سنجی رو انجام بدید.',
+        }
+    )
 
     def __init__(self, *args, **kwargs):
         super(CreateUserForm, self).__init__(*args, **kwargs)
@@ -37,7 +48,17 @@ class CreateUserForm(UserCreationForm):
 
 
 class LoginForm(AuthenticationForm):
-    captcha = ReCaptchaField()
+    captcha = ReCaptchaField(
+        label='اعتبار سنجی',
+        widget=ReCaptchaV2Checkbox(
+            api_params={
+                'hl': 'fa'
+            }
+        ),
+        error_messages={
+            'required': 'لطفا اعتبار سنجی رو انجام بدید.',
+        }
+    )
 
     def __init__(self, *args, **kwargs):
         super(LoginForm, self).__init__(*args, **kwargs)
