@@ -110,7 +110,7 @@ class Article(models.Model):
     author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='articles',
                                verbose_name="نویسنده")
     title = models.CharField(max_length=400, verbose_name="عنوان مقاله")
-    slug = models.SlugField(max_length=200, unique=True, verbose_name="آدرس مقاله")
+    slug = models.SlugField(max_length=200, verbose_name="آدرس مقاله")
     description = RichTextUploadingField(verbose_name="محتوا")
     image_list = models.ImageField(upload_to=upload_image_list_path, verbose_name="تصویر 135*135 مقاله")
     image = models.ImageField(upload_to=upload_image_path, verbose_name="تصویر مقاله")

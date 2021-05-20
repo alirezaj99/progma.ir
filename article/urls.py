@@ -9,5 +9,5 @@ urlpatterns = [
     path('saved-articles/', SaveArticleList.as_view(), name="article_save"),
     path('add-save-article/<int:pk>/', add_save_post, name="article_save_add"),
     path('remove-save-article/<int:pk>/', remove_save_post, name="article_save_remove"),
-    path('articles/<slug:slug>/', ArticleDetail.as_view(), name='article_detail'),
+    path('articles/<int:pk>/<slug:slug>/', ArticleDetail.as_view(), name='article_detail'),
 ]

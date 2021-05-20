@@ -44,11 +44,12 @@ class ArticleDetail(FormMixin, DetailView):
     form_class = CommentForm
 
     def get_success_url(self):
-        return reverse('article:article_detail', kwargs={'slug': self.object.slug})
+        return reverse('article:article_detail', kwargs={'slug': self.object.slug, 'pk': self.object.pk})
 
     def get_object(self):
         article = get_object_or_404(Article.objects.get_publish_article(),
-                                    slug=self.kwargs.get('slug')
+                                    slug=self.kwargs.get('slug'),
+                                    pk=self.kwargs.get('pk'),
                                     )
         ip_address = self.request.user.ip_address
         if ip_address not in article.hits.all():

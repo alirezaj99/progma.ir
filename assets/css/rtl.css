@@ -121,3 +121,15 @@ code {
     overflow-x: auto;
 
 }
+
+a {
+    text-decoration: none !important;
+}
+
+.blue-link a {
+    transition: color .18s ease-in-out !important;
+}
+
+.blue-link a:hover {
+    color: #0148BC !important;
+}

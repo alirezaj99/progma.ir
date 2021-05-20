@@ -23,17 +23,20 @@
             {% for article in page_obj %}
                 <div class="item mb-3">
                     <div class="media">
-                        <a href="{% url 'article:article_detail' article.slug %}"><img
+                        <a href="{% url 'article:article_detail' article.pk article.slug %}"><img
                                 class="ml-3 img-fluid post-thumb d-none d-md-flex"
                                 src="{{ article.image_list.url }}" alt="{{ article.title }}"></a>
                         <div class="media-body">
                             <h3 class="title mb-1"><a
-                                    href="{% url 'article:article_detail' article.slug %}">{{ article.title }}</a>
+                                    href="{% url 'article:article_detail' article.pk article.slug %}">{{ article.title }}</a>
                             </h3>
-                            <div class="meta"><span
-                                    class="date">{{ article.publish|naturaltime }}</span><span
-                                    class="time">{{ article.hits.count }} بازدید</span><span
-                                    class="comment"><a href="#">8 دیدگاه</a></span>
+                            <div class="meta">
+                                <span class="date">{{ article.publish|naturaltime }}</span><span
+                                    class="time">{{ article.hits.count }} بازدید</span>
+                                <span class="comment">نویسنده : <a>{% if article.author.get_full_name %}
+                                    {{ article.author.get_full_name }}{% else %}
+                                    {{ article.author.username }}{% endif %}</a></span>
+                                <span class="comment"><a>{{ article.article_comment.get_active_comment.count }} دیدگاه</a></span>
                                 <span class="comment"><a>
                              {% if user.is_authenticated %}
                                  <div class="article-tag text-center">
@@ -62,9 +65,9 @@
                             </a>
                                 </span>
                             </div>
-                            <div class="intro text-justify">{{ article.description|striptags|truncatewords:50 }}
+                            <div class="intro text-justify">{{ article.description|striptags|safe|truncatewords:50 }}
                             </div>
-                            <a class="more-link" href="{% url 'article:article_detail' article.slug %}">&rarr; ادامه
+                            <a class="more-link" href="{% url 'article:article_detail' article.pk article.slug %}">&rarr; ادامه
                                 مقاله</a>
                         </div><!--//media-body-->
                     </div><!--//media-->

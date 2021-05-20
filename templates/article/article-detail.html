@@ -18,19 +18,16 @@
                     <span class="comment">نویسنده : <a>{% if object.author.get_full_name %}
                         {{ object.author.get_full_name }}{% else %}{{ object.author.username }}{% endif %}</a></span>
                     <span class="time">{{ object.hits.count }} بازدید</span>
-                    <span class="comment"><a
-                            href="#article-comment">{{ object.article_comment.get_active_comment.count }} دیدگاه</a></span>
+                    <span class="comment"><a>{{ object.article_comment.get_active_comment.count }} دیدگاه</a></span>
                 </div>
             </header>
             <div class="blog-post-body">
                 <figure class="blog-banner">
-                    <a href="{% url 'article:article_detail' object.slug %}"><img class="img-fluid"
+                    <a href="{% url 'article:article_detail' object.pk object.slug %}"><img class="img-fluid"
                                                                                   src="{{ object.image.url }}"
                                                                                   alt="{{ object.title }}"></a>
-                    <figcaption class="mt-2 text-center image-caption">تصویر از : <a
-                            href="{% url 'article:article_list' %}" target="_blank">پروگما</a></figcaption>
                 </figure>
-                <div>{{ object.description|safe }}</div>
+                <div class="mt-2">{{ object.description|safe }}</div>
                 {% if user.is_authenticated %}
                     <div class="article-tag text-center">
                         {% if object not in user.save_article.articles.get_publish_article %}
