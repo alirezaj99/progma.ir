@@ -44,7 +44,7 @@ class ArticleDetail(FormMixin, DetailView):
     form_class = CommentForm
 
     def get_success_url(self):
-        return reverse('article:article_detail', kwargs={'slug': self.object.slug, 'pk': self.object.pk})
+        return reverse('article:article_detail', kwargs={'pk': self.object.pk, 'slug': self.object.slug})
 
     def get_object(self):
         article = get_object_or_404(Article.objects.get_publish_article(),

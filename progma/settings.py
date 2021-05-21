@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'crispy_forms',
     'captcha',
+    'star_ratings',
     # MY APPS
     'account',
     'article',
@@ -200,3 +201,7 @@ DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 
 RECAPTCHA_PUBLIC_KEY = config('RECAPTCHA_PUBLIC_KEY')
 RECAPTCHA_PRIVATE_KEY = config('RECAPTCHA_PRIVATE_KEY')
+
+# star ratings
+
+STAR_RATINGS_STAR_HEIGHT = 17

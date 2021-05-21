@@ -136,7 +136,7 @@ class Article(models.Model):
         return str(self.author)
 
     def get_url(self):
-        return reverse('article:article_detail', kwargs={'slug': self.slug})
+        return reverse('article:article_detail', kwargs={'pk': self.pk, 'slug': self.slug})
 
     author_str.short_description = 'نویسنده'
 

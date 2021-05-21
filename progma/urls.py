@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf.urls.static import static
 from django.conf import settings
 from account.views import logout_view
@@ -15,6 +15,7 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/login/', RedirectView.as_view(url='/')),
+    re_path(r'^ratings/', include('star_ratings.urls', namespace='ratings')),
     path('admin/', admin.site.urls),
 ]
 

@@ -3,6 +3,7 @@
 {% load humanize %}
 {% load widget_tweaks %}
 {% load crispy_forms_tags %}
+{% load ratings %}
 
 {% block add_header_reference %}
     <link rel="stylesheet" href="{% static 'comments/comments.css' %}">
@@ -24,10 +25,16 @@
             <div class="blog-post-body">
                 <figure class="blog-banner">
                     <a href="{% url 'article:article_detail' object.pk object.slug %}"><img class="img-fluid"
-                                                                                  src="{{ object.image.url }}"
-                                                                                  alt="{{ object.title }}"></a>
+                                                                                            src="{{ object.image.url }}"
+                                                                                            alt="{{ object.title }}"></a>
                 </figure>
-                <div class="mt-2">{{ object.description|safe }}</div>
+                <div class="text-center mr-5">
+                    <div style="margin-left: 10rem;margin-bottom: -1.3rem">
+                        امتیاز :
+                    </div>
+                    {% ratings object %}
+                </div>
+                <div class="mt-1">{{ object.description|safe }}</div>
                 {% if user.is_authenticated %}
                     <div class="article-tag text-center">
                         {% if object not in user.save_article.articles.get_publish_article %}
