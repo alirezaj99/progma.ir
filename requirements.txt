@@ -13,7 +13,6 @@ django-js-asset==1.2.2
 django-model-utils==4.1.1
 django-recaptcha==2.0.6
 django-render-partial==0.4
-django-star-ratings==0.9.1
 django-widget-tweaks==1.4.8
 idna==2.10
 oauthlib==3.1.0
