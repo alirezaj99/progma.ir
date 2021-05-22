@@ -2,11 +2,12 @@
 {% load static %}
 {% load humanize %}
 {% load widget_tweaks %}
-{% load crispy_forms_tags %}
 {% load ratings %}
 
 {% block add_header_reference %}
     <link rel="stylesheet" href="{% static 'comments/comments.css' %}">
+    <!-- Star Ratings -->
+    <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
 {% endblock %}
 {% block title %}مقاله {{ object.title }}{% endblock %}
 {% block content %}
@@ -175,4 +176,14 @@
 
     </article>
 
+{% endblock %}
+{% block add_footer_reference %}
+    <!-- Star Ratings -->
+    <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
 {% endblock %}

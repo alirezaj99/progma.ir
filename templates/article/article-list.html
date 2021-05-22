@@ -75,10 +75,12 @@
                                 </span>
                                 {% endif %}
                             </div>
+
                             <div class="intro text-justify">{{ article.description|striptags|safe|truncatewords:50 }}
                             </div>
 
-                            <a class="more-link" href="{% url 'article:article_detail' article.pk article.slug %}">&rarr; ادامه
+                            <a class="more-link" href="{% url 'article:article_detail' article.pk article.slug %}">&rarr;
+                                ادامه
                                 مقاله</a>
                         </div><!--//media-body-->
                     </div><!--//media-->
