@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'captcha',
     'star_ratings',
+    'sorl.thumbnail',
     # MY APPS
     'account',
     'article',

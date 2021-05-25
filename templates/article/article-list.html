@@ -1,6 +1,7 @@
 {% extends 'Shared/base.html' %}
 {% load static %}
 {% load humanize %}
+{% load thumbnail %}
 {% block title %}{% if request.GET.s %}جستوجوی {{ request.GET.s }} در مقالات{% else %}برای برنامه نویسان
 {% endif %}{% endblock %}
 {% block content %}
@@ -31,9 +32,14 @@
             {% for article in page_obj %}
                 <div class="item mb-3 blue-link">
                     <div class="media">
-                        <a href="{% url 'article:article_detail' article.pk article.slug %}"><img
-                                class="ml-3 img-fluid post-thumb d-none d-md-flex"
-                                src="{{ article.image_list.url }}" alt="{{ article.title }}"></a>
+                        <a href="{% url 'article:article_detail' article.pk article.slug %}">
+                            {#                            <img class="ml-3 img-fluid post-thumb d-none d-md-flex"#}
+                            {#                                 src="{{ article.image_list.url }}" alt="{{ article.title }}">#}
+                            {% thumbnail article.image_list "135x135" crop="center" as im %}
+                                <img class="ml-3 img-fluid post-thumb d-none d-md-flex" src="{{ im.url }}"
+                                     width="{{ im.width }}" height="{{ im.height }}" alt="{{ article.title }}">
+                            {% endthumbnail %}
+                        </a>
                         <div class="media-body">
                             <h3 class="title mb-1"><a
                                     href="{% url 'article:article_detail' article.pk article.slug %}">{{ article.title }}</a>
